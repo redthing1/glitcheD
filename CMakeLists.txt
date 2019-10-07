@@ -3,4 +3,4 @@ project(glitched)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(glitched main.cpp)
+add_executable(glitched main.cpp constants.h)
