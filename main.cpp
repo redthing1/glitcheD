@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "constants.h"
+#include "AudioFile.h"
 
 // Using standard typedefs for portability, you can change them to normal data types if you like
 
@@ -10,15 +11,42 @@
 // should be 32 or 16 bits aka 130 years or 18 hours, but then
 // again you never know what sound installations people come up with
 
-std::unique_ptr<uint16_t[]> gen(float freq, uint32_t dur, float vol = 1.0);
+std::vector<double> gen(float freq, uint32_t dur, float vol = 1.0);
 
 int main(int argc, const char *argv[]) {
 
     // source: http://thecodeinn.blogspot.com/2014/02/developing-digital-synthesizer-in-c_2.html
-    std::unique_ptr<uint16_t[]> buf = gen(440, 3);
+    auto buf = gen(440, 1, 0.7f);
+    auto bufA = gen(440, 1, 0.3f);
+    auto bufC = gen(523.2511, 1, 0.3f);
+    auto bufE = gen(659.2551, 1, 0.3f);
+    auto bufG = gen(783.9909, 1, 0.3f);
+
+    uint32_t audioBufferSize = buf.size();
+    std::cout << "buf size " << audioBufferSize << std::endl;
+
+    AudioFile<double> outAudio;
+    outAudio.setAudioBufferSize (1, audioBufferSize);
+    outAudio.setBitDepth (24);
+    outAudio.setSampleRate (44100);
+
+    AudioFile<double>::AudioBuffer audioBuffer;
+    audioBuffer.resize(1);
+    audioBuffer[0].resize(audioBufferSize * 2);
+
+    for (int i = 0; i < audioBufferSize; i++) {
+        audioBuffer[0][i] = bufA[i] + bufC[i] + bufE[i];
+    }
+    for (int i = 0; i < audioBufferSize; i++) {
+        audioBuffer[0][audioBufferSize + i] = bufC[i] + bufE[i] + bufG[i];
+    }
+    outAudio.setAudioBuffer(audioBuffer);
+
+    outAudio.save("out.wav", AudioFileFormat::Wave);
+    std::cout << "cmon" << std::endl;
 }
 
-std::unique_ptr<uint16_t[]> gen(float freq, uint32_t dur, float vol) {
+std::vector<double> gen(float freq, uint32_t dur, float vol) {
     uint32_t sampleRate = 44100; // samples per second
 
     // initial phase position
@@ -30,14 +58,11 @@ std::unique_ptr<uint16_t[]> gen(float freq, uint32_t dur, float vol) {
     // The amount of samples the buffer must hold
     size_t sampleCount = sampleRate * dur;
 
-    auto buffer = std::make_unique<uint16_t[]>(sampleCount); // create a new array with size for the entire buffer
+    auto buffer = std::vector<double>(sampleCount); // create a new array with size for the entire buffer
 
     for (int i = 0; i < sampleCount; i++) // fill the buffer
     {
-        // the factor 32767 comes from the fact that .wav files store samples
-        // as 16 bit signed integers, before this the values are normalized
-        // between -1 and + 1 (the sine values).
-        buffer[i] = 32767 * (std::sin(phase) * vol);
+        buffer[i] = std::sin(phase) * vol;
         phase += phaseIncrement;
 
         // when the wave hits 2Pi/360˚/full circle we have to reset the phase
