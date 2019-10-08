@@ -8,4 +8,4 @@ add_executable(glitched
         constants.h
         AudioFile.cpp
         AudioFile.h
-        SongWriter.cpp SongWriter.h Oscillator.cpp Oscillator.h Tuning.cpp Tuning.h)
+        SongWriter.cpp SongWriter.h Oscillator.cpp Oscillator.h Tuning.cpp Tuning.h Instrument.cpp Instrument.h Envelope.cpp Envelope.h)
