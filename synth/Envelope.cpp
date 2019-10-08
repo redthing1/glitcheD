@@ -1,14 +1,13 @@
 #include "Envelope.h"
 
-Envelope::Envelope(double a, double d, double s, double r) : A(a), D(d), S(s), R(r) {}
+glitched::Envelope::Envelope(double a, double d, double s, double r) : A(a), D(d), S(s), R(r) {}
 
-
-double Envelope::calculateMultiplier(double start, double end, double time) {
+double glitched::Envelope::calculateMultiplier(double start, double end, double time) {
     double mult = 1.0 + (std::log(start) - std::log(end)) * time;
     return mult;
 }
 
-double Envelope::calc(bool held, double t) {
+double glitched::Envelope::calc(bool held, double t) {
     double level = 0;
     if (held) {
         if (t < A) {

@@ -9,7 +9,7 @@ inline std::vector<double> makeBuffer(size_t sampleCount) {
     return buffer;
 }
 
-std::vector<double> Oscillator::genSin(double freq, double dur, double amp, double phase) {
+std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double amp, double phase) {
     // The phase increment is the phase value the wave increases per sample
     double delta = (tau * freq) / SAMPLE_RATE;
 
@@ -29,12 +29,11 @@ std::vector<double> Oscillator::genSin(double freq, double dur, double amp, doub
     return buffer;
 }
 
-std::vector<double> Oscillator::genSqr(double freq, double dur, double amp) {
+std::vector<double> glitched::Oscillator::genSqr(double freq, double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
     // square wave is odd partials
-    int iter = PARTIALS;
-    for (int i = 1; i <= iter; i += 2) {
+    for (int i = 1; i <= PARTIALS; i += 2) {
         auto partial = genSin(freq * i, dur, amp / i);
         // add the partial
         for (int j = 0; j < sampleCount; j++) {
@@ -45,12 +44,11 @@ std::vector<double> Oscillator::genSqr(double freq, double dur, double amp) {
     return buf;
 }
 
-std::vector<double> Oscillator::genSaw(double freq, double dur, double amp, double factor) {
+std::vector<double> glitched::Oscillator::genSaw(double freq, double dur, double amp, double factor) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
     // saw wave is all partials
-    int iter = PARTIALS;
-    for (int i = 1; i <= iter; i += 1) {
+    for (int i = 1; i <= PARTIALS; i += 1) {
         auto partial = genSin(freq * i, dur, (amp * factor) / i);
         // add the partial
         for (int j = 0; j < sampleCount; j++) {
@@ -61,12 +59,11 @@ std::vector<double> Oscillator::genSaw(double freq, double dur, double amp, doub
     return buf;
 }
 
-std::vector<double> Oscillator::genTri(double freq, double dur, double amp) {
+std::vector<double> glitched::Oscillator::genTri(double freq, double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
-    int iter = PARTIALS;
     int sign = 1;
-    for (int i = 1; i <= iter; i += 2) {
+    for (int i = 1; i <= PARTIALS; i += 2) {
         auto partial = genSin(freq * i, dur, (sign * amp) / (i * i));
         sign = -sign;
         // add the partial
@@ -78,9 +75,9 @@ std::vector<double> Oscillator::genTri(double freq, double dur, double amp) {
     return buf;
 }
 
-Oscillator::Oscillator(Wave wave) : wave(wave) { }
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave) { }
 
-std::vector<double> Oscillator::play(double freq, double dur, double amp) {
+std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
     switch (wave) {
         case Wave::Sine:
             return genSin(freq, dur, amp);

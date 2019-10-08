@@ -4,11 +4,11 @@
 #include "../constants.h"
 #include "../util/Tuning.h"
 
-Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope) : voices(std::move(voices)), amplitudeEnvelope(amplitudeEnvelope) {
+glitched::Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope) : voices(std::move(voices)), amplitudeEnvelope(amplitudeEnvelope) {
 
 }
 
-std::vector<double> Instrument::play(uint16_t note, double dur, double vol) {
+std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double vol) {
     auto buf = std::vector<double>();
     buf.resize(dur * SAMPLE_RATE);
     for (int i = 0; i < voices.size(); i++) {
