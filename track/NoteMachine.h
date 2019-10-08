@@ -12,7 +12,8 @@ namespace glitched {
         int programCounter;
         int stackPointer;
 
-        byte noteDuration = 16;
+        byte noteDuration = 24;
+        byte noteBps = 48;
         byte noteVelocity = 128;
 
         byte noteMode = MODE_IMMEDIATE;
@@ -40,6 +41,7 @@ namespace glitched {
             BATCH = 0x13,
             DUR = 0x20,
             VEL = 0x21,
+            BPS = 0x22,
             RET = 0x99,
         };
 

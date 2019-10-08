@@ -59,6 +59,10 @@ void glitched::NoteMachine::execute() {
                 noteVelocity = this->memory[programCounter++ + 1];
                 break;
             }
+            case BPS: {
+                noteBps = this->memory[programCounter++ + 1];
+                break;
+            }
             case RET: {
                 running = false;
             }
@@ -68,8 +72,7 @@ void glitched::NoteMachine::execute() {
 }
 
 double glitched::NoteMachine::getDuration(glitched::NoteMachine::byte dur) {
-    // 120bpm
-    return noteDuration / 32.0;
+    return noteDuration / static_cast<double>(noteBps);
 }
 
 double glitched::NoteMachine::getVelocity(glitched::NoteMachine::byte dur) {
