@@ -20,10 +20,10 @@ std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double
             auto envVal = amplitudeEnvelope.calc(true, static_cast<double>(j) / SAMPLE_RATE);
             buf[j] += voiceBuf[j] * envVal;
         }
-        for (int j = 0; j < sampleLength; j++) {
-            auto envVal = amplitudeEnvelope.calc(false, static_cast<double>(j) / SAMPLE_RATE);
-            buf[sampleLength + j] += voiceBuf[j] * envVal;
-        }
+//        for (int j = 0; j < sampleLength; j++) {
+//            auto envVal = amplitudeEnvelope.calc(false, static_cast<double>(j) / SAMPLE_RATE);
+//            buf[sampleLength + j] += voiceBuf[j] * envVal;
+//        }
     }
     return buf;
 }
