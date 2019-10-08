@@ -1,6 +1,6 @@
 #include <cmath>
 #include "Oscillator.h"
-#include "constants.h"
+#include "../constants.h"
 
 inline std::vector<double> makeBuffer(size_t sampleCount) {
     // The amount of samples the buffer must hold

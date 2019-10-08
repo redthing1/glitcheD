@@ -5,10 +5,10 @@
 #include <vector>
 
 #include "constants.h"
-#include "SongWriter.h"
-#include "Oscillator.h"
-#include "Tuning.h"
-#include "Instrument.h"
+#include "track/SongWriter.h"
+#include "synth/Oscillator.h"
+#include "util/Tuning.h"
+#include "synth/Instrument.h"
 
 int main(int argc, const char *argv[]) {
 

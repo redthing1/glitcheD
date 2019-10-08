@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "AudioFile.h"
+#include "../util/AudioFile.h"
 
 class SongWriter {
     AudioFile<double> audioFile;

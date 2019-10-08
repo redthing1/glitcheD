@@ -1,6 +1,6 @@
 
 #include "SongWriter.h"
-#include "constants.h"
+#include "../constants.h"
 
 SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
     const int numChannels = 1;

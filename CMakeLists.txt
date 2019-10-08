@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(glitched
         main.cpp
         constants.h
-        AudioFile.cpp
-        AudioFile.h
-        SongWriter.cpp SongWriter.h Oscillator.cpp Oscillator.h Tuning.cpp Tuning.h Instrument.cpp Instrument.h Envelope.cpp Envelope.h)
+        util/AudioFile.cpp
+        util/AudioFile.h
+        track/SongWriter.cpp track/SongWriter.h synth/Oscillator.cpp synth/Oscillator.h util/Tuning.cpp util/Tuning.h synth/Instrument.cpp synth/Instrument.h synth/Envelope.cpp synth/Envelope.h)

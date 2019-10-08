@@ -1,8 +1,8 @@
 #include "Instrument.h"
 
 #include <utility>
-#include "constants.h"
-#include "Tuning.h"
+#include "../constants.h"
+#include "../util/Tuning.h"
 
 Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope) : voices(std::move(voices)), amplitudeEnvelope(amplitudeEnvelope) {
 
