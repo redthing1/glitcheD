@@ -1,4 +1,5 @@
 #include <cmath>
+#include <stdexcept>
 #include "Oscillator.h"
 #include "../constants.h"
 
@@ -88,6 +89,7 @@ std::vector<double> glitched::Oscillator::play(double freq, double dur, double a
         case Wave::Triangle:
             return genTri(freq, dur, amp);
     }
+    throw std::invalid_argument("invalid waveform");
 }
 
 
