@@ -9,7 +9,11 @@ static const std::vector<uint8_t> demo_testSong1 = {
         glitched::NoteMachine::DUR, 24,
         glitched::NoteMachine::BPS, 48,
 
+        glitched::NoteMachine::DUR, 24,
         glitched::NoteMachine::PLAY, 49,
+
+        glitched::NoteMachine::DUR, 24,
+        glitched::NoteMachine::REST,
 
         glitched::NoteMachine::DUR, 72,
         glitched::NoteMachine::VEL, 32,

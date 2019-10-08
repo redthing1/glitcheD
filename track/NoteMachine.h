@@ -39,6 +39,7 @@ namespace glitched {
             PUSH = 0x11,
             FRAME = 0x12,
             BATCH = 0x13,
+            REST = 0x14,
             DUR = 0x20,
             VEL = 0x21,
             BPS = 0x22,

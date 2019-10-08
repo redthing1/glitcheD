@@ -18,7 +18,7 @@ int main(int argc, const char *argv[]) {
 
     auto test440Buf = osc1.play(glitched::note(49), 1, 0.9f);
 
-    auto instr1 = glitched::Instrument({osc1, osc2}, glitched::Envelope(0.05f, 0.2f, 1.0f, 0.4f));
+    auto instr1 = glitched::Instrument({osc1, osc2}, glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f));
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);

@@ -38,6 +38,11 @@ void glitched::NoteMachine::execute() {
                 bufferPosition += dur * SAMPLE_RATE;
                 break;
             }
+            case REST: {
+                auto dur = getDuration(noteDuration);
+                bufferPosition += dur * SAMPLE_RATE;
+                break;
+            }
             case PUSH: {
                 byte note = this->memory[programCounter++ + 1];
                 this->memory[stackPointer--] = note;
