@@ -40,6 +40,7 @@ namespace glitched {
             FRAME = 0x12,
             BATCH = 0x13,
             REST = 0x14,
+            BACK = 0x15,
             DUR = 0x20,
             VEL = 0x21,
             BPS = 0x22,
