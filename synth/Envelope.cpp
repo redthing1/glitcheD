@@ -12,7 +12,7 @@ double glitched::Envelope::calc(bool held, double t) {
     if (held) {
         if (t < A) {
             // attack
-            level = 1;
+            level = (t / A);
         } else if (t < (A + D)) {
             // decay
             level = 1;
@@ -22,7 +22,7 @@ double glitched::Envelope::calc(bool held, double t) {
         }
     } else {
         // release
-        level = 0;
+        level = (1 - (t / R)) * S;
     }
     return level;
 }

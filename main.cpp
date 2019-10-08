@@ -13,14 +13,14 @@
 #include "misc/songs.h"
 
 int main(int argc, const char *argv[]) {
-    auto osc1 = glitched::Oscillator(glitched::Wave::Sine);
-    auto osc2 = glitched::Oscillator(glitched::Wave::Square);
+    auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
+    auto osc2 = glitched::Oscillator(glitched::Wave::Triangle);
 
     auto test440Buf = osc1.play(glitched::note(49), 1, 0.7f);
 
-    auto instr1 = glitched::Instrument({osc1, osc2}, glitched::Envelope(0.05f, 0.2f, 0.7f, 0.2f));
+    auto instr1 = glitched::Instrument({osc1, osc2}, glitched::Envelope(0.05f, 0.2f, 0.4f, 0.2f));
 
-    glitched::NoteMachine noteMachine(INT16_MAX, instr1, 16);
+    glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);
     noteMachine.execute();
 
