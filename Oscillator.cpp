@@ -9,7 +9,7 @@ inline std::vector<double> makeBuffer(size_t sampleCount) {
     return buffer;
 }
 
-std::vector<double> genSin(double freq, double dur, double amp, double phase) {
+std::vector<double> Oscillator::genSin(double freq, double dur, double amp, double phase) {
     // The phase increment is the phase value the wave increases per sample
     double delta = (tau * freq) / SAMPLE_RATE;
 
@@ -29,7 +29,7 @@ std::vector<double> genSin(double freq, double dur, double amp, double phase) {
     return buffer;
 }
 
-std::vector<double> genSqr(double freq, double dur, double amp) {
+std::vector<double> Oscillator::genSqr(double freq, double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
     // square wave is odd partials
@@ -45,7 +45,7 @@ std::vector<double> genSqr(double freq, double dur, double amp) {
     return buf;
 }
 
-std::vector<double> genSaw(double freq, double dur, double amp, double factor) {
+std::vector<double> Oscillator::genSaw(double freq, double dur, double amp, double factor) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
     // saw wave is all partials
@@ -61,7 +61,7 @@ std::vector<double> genSaw(double freq, double dur, double amp, double factor) {
     return buf;
 }
 
-std::vector<double> genTri(double freq, double dur, double amp) {
+std::vector<double> Oscillator::genTri(double freq, double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
     int iter = PARTIALS;
@@ -77,3 +77,20 @@ std::vector<double> genTri(double freq, double dur, double amp) {
 
     return buf;
 }
+
+Oscillator::Oscillator(Wave wave) : wave(wave) { }
+
+std::vector<double> Oscillator::play(double freq, double dur, double amp) {
+    switch (wave) {
+        case Wave::Sine:
+            return genSin(freq, dur, amp);
+        case Wave::Square:
+            return genSqr(freq, dur, amp);
+        case Wave::Saw:
+            return genSaw(freq, dur, amp);
+        case Wave::Triangle:
+            return genTri(freq, dur, amp);
+    }
+}
+
+

@@ -4,7 +4,21 @@
 
 static const int PARTIALS = 64;
 
-std::vector<double> genSin(double freq, double dur, double amp = 1.0, double phase = 0);
-std::vector<double> genSqr(double freq, double dur, double amp = 1.0);
-std::vector<double> genSaw(double freq, double dur, double amp = 1.0, double factor = 1.0);
-std::vector<double> genTri(double freq, double dur, double amp = 1.0);
+enum Wave {
+    Sine,
+    Square,
+    Saw,
+    Triangle
+};
+
+class Oscillator {
+    static std::vector<double> genSin(double freq, double dur, double amp = 1.0, double phase = 0);
+    static std::vector<double> genSqr(double freq, double dur, double amp = 1.0);
+    static std::vector<double> genSaw(double freq, double dur, double amp = 1.0, double factor = 1.0);
+    static std::vector<double> genTri(double freq, double dur, double amp = 1.0);
+
+public:
+    Wave wave;
+    explicit Oscillator(Wave wave);
+    std::vector<double> play(double freq, double dur, double amp);
+};
