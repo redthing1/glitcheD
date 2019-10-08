@@ -22,12 +22,18 @@ int main(int argc, const char *argv[]) {
     std::vector<uint8_t> songProgram = {
             glitched::NoteMachine::VEL, 96,
             glitched::NoteMachine::DUR, 24,
+            glitched::NoteMachine::BPS, 48,
+
             glitched::NoteMachine::PLAY, 49,
+
+            glitched::NoteMachine::DUR, 72,
+            glitched::NoteMachine::VEL, 32,
             glitched::NoteMachine::FRAME,
             glitched::NoteMachine::PUSH, 49,
             glitched::NoteMachine::PUSH, 52,
             glitched::NoteMachine::PUSH, 56,
             glitched::NoteMachine::BATCH,
+
             glitched::NoteMachine::RET,
     };
 

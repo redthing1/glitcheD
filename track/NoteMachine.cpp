@@ -48,7 +48,13 @@ void glitched::NoteMachine::execute() {
                 break;
             }
             case BATCH: {
-                // TODO: play note batch
+                auto dur = getDuration(noteDuration);
+                while (this->memory[++stackPointer] != FRAME_DELIMITER) {
+                    byte note = this->memory[stackPointer];
+                    auto noteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
+                    copyAudio(noteAudioBuffer, bufferPosition);
+                }
+                bufferPosition += dur * SAMPLE_RATE;
                 break;
             }
             case DUR: {
