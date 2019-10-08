@@ -4,9 +4,11 @@
 namespace glitched {
     class Envelope {
     private:
-        static double calculateMultiplier(double start, double end, double time);
+        static double logEase(double lower, double upper, double exponent, double x);
 
+        const double ENVELOPE_EXP = 3.0;
         const double ENVELOPE_MIN = 0.0001;
+        const double ENVELOPE_MAX = 1.0;
     public:
         double A, D, S, R;
 
