@@ -8,7 +8,6 @@ glitched::Parameter::Parameter() = default;
 glitched::Value::Value(double value) : Value(value, Parameter()) {
 }
 
-
 glitched::Value::Value(double value, const glitched::Parameter &mod) : val(value), mod(mod), modAmount(0.0) {
 
 }
