@@ -15,7 +15,7 @@
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
-    auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
+    auto osc2 = glitched::Oscillator(glitched::Wave::Square);
 
     auto test440Buf = osc1.play(glitched::note(49), 1, 0.9f);
 
