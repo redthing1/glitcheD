@@ -76,6 +76,21 @@ std::vector<double> glitched::Oscillator::genTri(double freq, double dur, double
     return buf;
 }
 
+inline double randf() {
+    return ((double) std::rand() / (RAND_MAX));
+}
+
+std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
+    size_t sampleCount = SAMPLE_RATE * dur;
+    auto buf = makeBuffer(sampleCount);
+    int sign = 1;
+    for (int j = 0; j < sampleCount; j++) {
+        buf[j] = (randf() * 2) - 1;
+    }
+
+    return buf;
+}
+
 glitched::Oscillator::Oscillator(Wave wave) : wave(wave) { }
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
@@ -88,6 +103,8 @@ std::vector<double> glitched::Oscillator::play(double freq, double dur, double a
             return genSaw(freq, dur, amp);
         case Wave::Triangle:
             return genTri(freq, dur, amp);
+        case Wave::Noise:
+            return genNoise(dur, amp);
     }
     throw std::invalid_argument("invalid waveform");
 }
