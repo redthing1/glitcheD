@@ -9,7 +9,7 @@ double glitched::Envelope::logEase(double lower, double upper, double exponent, 
     return ret;
 }
 
-double glitched::Envelope::calc(bool held, double t) {
+double glitched::Envelope::calc(bool held, double t) const {
     double level = 0;
     if (held) {
         if (t < A) {
@@ -29,5 +29,9 @@ double glitched::Envelope::calc(bool held, double t) {
         level = logEase(0, S, ENVELOPE_EXP, xVal);
     }
     return level;
+}
+
+double glitched::Envelope::value(double t) const {
+    return calc(true, t);
 }
 

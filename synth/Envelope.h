@@ -1,8 +1,10 @@
 #pragma once
 
 #include <cmath>
+#include "Parameter.h"
+
 namespace glitched {
-    class Envelope {
+    class Envelope: public Parameter {
     private:
         static double logEase(double lower, double upper, double exponent, double x);
 
@@ -14,6 +16,7 @@ namespace glitched {
 
         Envelope(double a, double d, double s, double r);
 
-        double calc(bool held, double t);
+        double calc(bool held, double t) const;
+        double value(double t) const override;
     };
 }
