@@ -4,9 +4,9 @@
 #include "../constants.h"
 #include "../util/Tuning.h"
 
-glitched::Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope) : voices(
-        std::move(voices)), amplitudeEnvelope(amplitudeEnvelope) {
-
+glitched::Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter) : voices(
+        std::move(voices)), amplitudeEnvelope(amplitudeEnvelope),
+        filter(filter) {
 }
 
 std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double vol) {
@@ -18,11 +18,15 @@ std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double
         auto voiceBuf = voices[i].play(glitched::note(note), dur, vol / voices.size());
         for (int j = 0; j < sampleLength; j++) {
             auto envVal = amplitudeEnvelope.calc(true, static_cast<double>(j) / SAMPLE_RATE);
-            buf[j] += voiceBuf[j] * envVal * glitched::MIX_NOTE;
+            auto val = voiceBuf[j] * envVal * glitched::MIX_NOTE;
+            val = filter.process(val);
+            buf[j] += val;
         }
         for (int j = 0; j < sampleLength; j++) {
             auto envVal = amplitudeEnvelope.calc(false, static_cast<double>(j) / SAMPLE_RATE);
-            buf[sampleLength + j] += voiceBuf[j] * envVal * glitched::MIX_RELEASE;
+            auto val = voiceBuf[j] * envVal * glitched::MIX_RELEASE;
+            val = filter.process(val);
+            buf[sampleLength + j] += val;
         }
     }
     return buf;

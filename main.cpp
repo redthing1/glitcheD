@@ -7,19 +7,21 @@
 #include "constants.h"
 #include "track/SongWriter.h"
 #include "synth/Oscillator.h"
+#include "synth/Filter.h"
 #include "util/Tuning.h"
 #include "synth/Instrument.h"
 #include "track/NoteMachine.h"
 #include "misc/songs.h"
 
 int main(int argc, const char *argv[]) {
-    auto osc1 = glitched::Oscillator(glitched::Wave::Noise);
-//    auto osc2 = glitched::Oscillator(glitched::Wave::Triangle);
+    auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
+    auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
 
     auto test440Buf = osc1.play(glitched::note(49), 1, 0.9f);
 
-    auto voices = {osc1};
-    auto instr1 = glitched::Instrument(voices, glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f));
+    auto voices = {osc1, osc2};
+    auto instr1 = glitched::Instrument(voices, glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f),
+            glitched::Filter(glitched::FilterMode::LowPass, 0.6, 0.01));
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);

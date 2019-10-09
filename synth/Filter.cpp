@@ -14,7 +14,8 @@ void glitched::Filter::calculateFeedback() {
 }
 
 double glitched::Filter::process(double input) {
-    buf0 += cutoff * (input - buf0);
+//    buf0 += cutoff * (input - buf0);
+    buf0 += cutoff * (input - buf0 + feedback * (buf0 - buf1));
     buf1 += cutoff * (buf0 - buf1);
     switch (mode) {
         case FilterMode::LowPass:
