@@ -29,7 +29,7 @@ namespace glitched {
         double getVelocity(byte vel);
         void copyAudio(std::vector<double> buffer, uint32_t position);
     public:
-        Instrument instrument;
+        Instrument& instrument;
         std::vector<double> audioBuffer;
 
         enum Instruction : byte {
@@ -47,7 +47,7 @@ namespace glitched {
             RET = 0x99,
         };
 
-        explicit NoteMachine(uint16_t memorySize, Instrument instrument, double duration);
+        explicit NoteMachine(uint16_t memorySize, Instrument& instrument, double duration);
         void loadProgram(std::vector<byte> program);
         void execute();
     };

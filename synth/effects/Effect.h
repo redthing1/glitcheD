@@ -3,9 +3,11 @@
 //
 #pragma once
 
-class Effect {
-public:
-    virtual double value(double t) const = 0;
-};
+namespace glitched {
+    class Effect {
+    public:
+        virtual double value(double t) const { return 0; }
+    };
+}
 
 

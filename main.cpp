@@ -13,6 +13,7 @@
 #include "track/NoteMachine.h"
 #include "misc/songs.h"
 #include "synth/mod/LFO.h"
+#include "synth/effects/Overdrive.h"
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
@@ -28,6 +29,8 @@ int main(int argc, const char *argv[]) {
     auto resonance = glitched::Value(0.01);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::Instrument(voices, ampEnv, filter);
+
+    instr1.effects.emplace_back(std::make_unique<glitched::Overdrive>(glitched::Value(2.0), glitched::Value(0.8)));
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);

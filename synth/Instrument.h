@@ -1,14 +1,17 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include "Oscillator.h"
 #include "mod/Envelope.h"
 #include "Filter.h"
+#include "effects/Effect.h"
 
 namespace glitched {
     class Instrument {
     public:
         std::vector<Oscillator> voices;
+        std::vector<std::unique_ptr<glitched::Effect>> effects;
         Envelope amplitudeEnvelope;
         Filter filter;
 
