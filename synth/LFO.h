@@ -7,12 +7,11 @@
 #include "Parameter.h"
 
 namespace glitched {
-    class LFO : public Parameter {
+    class LFO: public Parameter {
     public:
         double freq;
-        double amplitude;
 
-        explicit LFO(double value, double freq, double amplitude);
+        explicit LFO(double freq);
         double value(double t) const override;
     };
 }

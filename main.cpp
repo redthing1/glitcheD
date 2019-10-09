@@ -12,6 +12,7 @@
 #include "synth/Instrument.h"
 #include "track/NoteMachine.h"
 #include "misc/songs.h"
+#include "synth/LFO.h"
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
@@ -21,7 +22,9 @@ int main(int argc, const char *argv[]) {
 
     auto voices = {osc1, osc2};
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoff = glitched::Value(0.6);
+    auto cutoffMod = glitched::LFO(2.0);
+    auto cutoff = glitched::Value(0.6, cutoffMod);
+    cutoff.modAmount = 0.2;
     auto resonance = glitched::Value(0.01);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::Instrument(voices, ampEnv, filter);

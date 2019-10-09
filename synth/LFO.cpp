@@ -5,10 +5,10 @@
 #include "LFO.h"
 #include "../constants.h"
 
-glitched::LFO::LFO(double value, double freq, double amplitude)
-        : freq(freq), amplitude(amplitude) {
+glitched::LFO::LFO(double freq)
+        : freq(freq) {
 }
 
 double glitched::LFO::value(double t) const {
-    return std::sin(freq * t * tau) * amplitude;
+    return std::sin(freq * t * tau);
 }
