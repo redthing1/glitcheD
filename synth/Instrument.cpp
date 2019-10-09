@@ -32,6 +32,7 @@ std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double
         }
     }
     for (auto& effect : effects) {
+        if (!effect->enabled) continue;
         for (int j = 0; j < sampleLength; j++) {
             auto out = effect->value(buf[j]);
             buf[j] = out;

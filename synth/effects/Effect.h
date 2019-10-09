@@ -6,6 +6,7 @@
 namespace glitched {
     class Effect {
     public:
+        bool enabled = true;
         virtual double value(double t) const { return 0; }
     };
 }
