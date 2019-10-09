@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include "Oscillator.h"
-#include "Envelope.h"
+#include "mod/Envelope.h"
 #include "Filter.h"
 
 namespace glitched {

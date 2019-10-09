@@ -3,7 +3,7 @@
 //
 #include <cmath>
 #include "LFO.h"
-#include "../constants.h"
+#include "../../constants.h"
 
 glitched::LFO::LFO(double freq)
         : freq(freq) {

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Parameter.h"
+#include "mod/Parameter.h"
 
 namespace glitched {
     enum FilterMode {

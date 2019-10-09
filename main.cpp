@@ -12,7 +12,7 @@
 #include "synth/Instrument.h"
 #include "track/NoteMachine.h"
 #include "misc/songs.h"
-#include "synth/LFO.h"
+#include "synth/mod/LFO.h"
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
