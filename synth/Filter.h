@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Parameter.h"
+
 namespace glitched {
     enum FilterMode {
         LowPass,
@@ -15,13 +17,13 @@ namespace glitched {
         double feedback;
         double buf0, buf1;
 
-        inline void calculateFeedback();
+        inline void calculateFeedback(double t);
     public:
         FilterMode mode;
-        double cutoff;
-        double resonance;
+        const Parameter& cutoff;
+        const Parameter& resonance;
 
-        explicit Filter(FilterMode mode, double cutoff, double resonance);
-        double process(double input);
+        explicit Filter(FilterMode mode, const Parameter& cutoff, const Parameter& resonance);
+        double process(double input, double t);
     };
 }

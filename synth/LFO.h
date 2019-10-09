@@ -12,7 +12,7 @@ namespace glitched {
         double freq;
         double amplitude;
 
-        explicit LFO(double freq, double amplitude);
-        double value(double t) override;
+        explicit LFO(double value, double freq, double amplitude);
+        double value(double t) const override;
     };
 }

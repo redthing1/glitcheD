@@ -4,19 +4,17 @@
 
 #include "Filter.h"
 
-glitched::Filter::Filter(glitched::FilterMode mode, double cutoff, double resonance)
-        : mode(mode), cutoff(cutoff), resonance(resonance), buf0(0), buf1(0) {
-
+glitched::Filter::Filter(glitched::FilterMode mode, const Parameter& cutoff, const Parameter& resonance)
+        : mode(mode), cutoff(cutoff), resonance(resonance), buf0(0), buf1(0), feedback(0) {
 }
 
-void glitched::Filter::calculateFeedback() {
-    feedback = resonance + resonance / (1 - cutoff);
+void glitched::Filter::calculateFeedback(double t) {
+    feedback = resonance.value(t) + resonance.value(t) / (1 - cutoff.value(t));
 }
 
-double glitched::Filter::process(double input) {
-//    buf0 += cutoff * (input - buf0);
-    buf0 += cutoff * (input - buf0 + feedback * (buf0 - buf1));
-    buf1 += cutoff * (buf0 - buf1);
+double glitched::Filter::process(double input, double t) {
+    buf0 += cutoff.value(t) * (input - buf0 + feedback * (buf0 - buf1));
+    buf1 += cutoff.value(t) * (buf0 - buf1);
     switch (mode) {
         case FilterMode::LowPass:
             return buf1;

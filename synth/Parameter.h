@@ -3,9 +3,24 @@
 //
 #pragma once
 
+#include <memory>
+
 namespace glitched {
     class Parameter {
     public:
-        virtual double value(double t) = 0;
+        explicit Parameter();
+        virtual double value(double t) const;
+    };
+
+    class Value: public Parameter {
+    public:
+        double val;
+
+        const Parameter& mod;
+        double modAmount;
+
+        explicit Value(double value);
+        explicit Value(double value, const Parameter& mod);
+        double value(double t) const override;
     };
 }

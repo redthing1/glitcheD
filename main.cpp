@@ -20,8 +20,11 @@ int main(int argc, const char *argv[]) {
     auto test440Buf = osc1.play(glitched::note(49), 1, 0.9f);
 
     auto voices = {osc1, osc2};
-    auto instr1 = glitched::Instrument(voices, glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f),
-            glitched::Filter(glitched::FilterMode::LowPass, 0.6, 0.01));
+    auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
+    auto cutoff = glitched::Value(0.6);
+    auto resonance = glitched::Value(0.01);
+    auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
+    auto instr1 = glitched::Instrument(voices, ampEnv, filter);
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);

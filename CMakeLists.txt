@@ -11,4 +11,4 @@ add_executable(glitched
         track/SongWriter.cpp
         track/SongWriter.h
         synth/Oscillator.cpp
-        synth/Oscillator.h util/Tuning.cpp util/Tuning.h synth/Instrument.cpp synth/Instrument.h synth/Envelope.cpp synth/Envelope.h track/NoteMachine.cpp track/NoteMachine.h misc/songs.h synth/Filter.cpp synth/Filter.h synth/Parameter.h synth/LFO.cpp synth/LFO.h)
+        synth/Oscillator.h util/Tuning.cpp util/Tuning.h synth/Instrument.cpp synth/Instrument.h synth/Envelope.cpp synth/Envelope.h track/NoteMachine.cpp track/NoteMachine.h misc/songs.h synth/Filter.cpp synth/Filter.h synth/Parameter.h synth/LFO.cpp synth/LFO.h synth/Parameter.cpp)
