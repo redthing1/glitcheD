@@ -1,7 +1,7 @@
 
 # glitched
 
-a glitchy synth and midi program
+a glitchy synth and sequencer program
 
 ## build
 
