@@ -17,9 +17,11 @@
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
-    osc1.tune = -20;
+    osc1.tune = -10;
+    osc1.mix = 0.5;
     auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
-    osc2.tune = +20;
+    osc2.tune = +10;
+    osc2.mix = 0.5;
     auto osc3 = glitched::Oscillator(glitched::Wave::Square);
     auto voices = {
             osc1,
@@ -30,14 +32,14 @@ int main(int argc, const char *argv[]) {
     auto cutoffMod = std::make_shared<glitched::LFO>(8.0);
     auto cutoff = glitched::Value(0.6, cutoffMod);
     cutoff.modAmount = 0.2;
-    auto resonance = glitched::Value(0.01);
+    auto resonance = glitched::Value(0.40);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::Instrument(voices, ampEnv, filter);
 
     auto fx1_gain = glitched::Value(1.5);
     auto fx1_threshold = glitched::Value(0.8);
     auto fx1 = std::make_unique<glitched::Overdrive>(fx1_gain, fx1_threshold);
-    fx1->enabled = false;
+//    fx1->enabled = false;
     instr1.effects.emplace_back(std::move(fx1));
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
