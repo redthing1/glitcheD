@@ -16,11 +16,11 @@ namespace glitched {
     public:
         double val;
 
-        const Parameter& mod;
+        const std::shared_ptr<Parameter> mod;
         double modAmount;
 
         explicit Value(double value);
-        explicit Value(double value, const Parameter& mod);
+        explicit Value(double value, const std::shared_ptr<Parameter> mod);
         double value(double t) const override;
     };
 }

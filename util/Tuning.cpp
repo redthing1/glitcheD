@@ -5,3 +5,7 @@
 double glitched::note(uint16_t note) {
     return 440 * std::pow(SEMITONE_RATIO, note - 49);
 }
+
+double glitched::detune(double freq, int cents) {
+    return freq * std::pow(CENT_RATIO, cents);
+}

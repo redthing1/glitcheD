@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "Oscillator.h"
 #include "../constants.h"
+#include "../util/Tuning.h"
 
 inline std::vector<double> makeBuffer(size_t sampleCount) {
     // The amount of samples the buffer must hold
@@ -91,9 +92,12 @@ std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     return buf;
 }
 
-glitched::Oscillator::Oscillator(Wave wave) : wave(wave) { }
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0) { }
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
+    // apply tune to freq
+    freq = glitched::detune(freq, tune);
+
     switch (wave) {
         case Wave::Sine:
             return genSin(freq, dur, amp);

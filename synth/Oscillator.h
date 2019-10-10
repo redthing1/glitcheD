@@ -21,6 +21,7 @@ namespace glitched {
 
     public:
         Wave wave;
+        int tune;
 
         explicit Oscillator(Wave wave);
 

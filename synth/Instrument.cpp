@@ -6,7 +6,7 @@
 
 glitched::Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter) : voices(
         std::move(voices)), amplitudeEnvelope(std::move(amplitudeEnvelope)),
-        filter(filter) {
+        filter(filter), pitchMod(std::move(Value(0))) {
 }
 
 std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double vol) {
@@ -15,7 +15,9 @@ std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double
     auto sampleLength = dur * SAMPLE_RATE;
     buf.resize(sampleLength * 2); // dirty hack for release
     for (auto& voice : voices) {
-        auto oscBuf = voice.play(glitched::note(note), dur, vol / voices.size());
+        auto freq = glitched::note(note);
+        // TODO: apply pitch mod
+        auto oscBuf = voice.play(freq, dur, vol / voices.size());
         for (int j = 0; j < sampleLength; j++) {
             double t = static_cast<double>(j) / SAMPLE_RATE;
             auto envVal = amplitudeEnvelope.calc(true, static_cast<double>(j) / SAMPLE_RATE);

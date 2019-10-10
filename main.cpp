@@ -17,20 +17,24 @@
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
-    auto osc2 = glitched::Oscillator(glitched::Wave::Square);
-
-    auto test440Buf = osc1.play(glitched::note(49), 1, 0.9f);
-
-    auto voices = {osc1, osc2};
+    osc1.tune = -20;
+    auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
+    osc2.tune = +20;
+    auto osc3 = glitched::Oscillator(glitched::Wave::Square);
+    auto voices = {
+            osc1,
+            osc2,
+            osc3
+    };
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoffMod = glitched::LFO(2.0);
+    auto cutoffMod = std::make_shared<glitched::LFO>(8.0);
     auto cutoff = glitched::Value(0.6, cutoffMod);
     cutoff.modAmount = 0.2;
     auto resonance = glitched::Value(0.01);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::Instrument(voices, ampEnv, filter);
 
-    auto fx1_gain = glitched::Value(4.0);
+    auto fx1_gain = glitched::Value(1.5);
     auto fx1_threshold = glitched::Value(0.8);
     auto fx1 = std::make_unique<glitched::Overdrive>(fx1_gain, fx1_threshold);
     fx1->enabled = false;

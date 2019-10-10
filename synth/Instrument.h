@@ -14,6 +14,7 @@ namespace glitched {
         std::vector<std::unique_ptr<glitched::Effect>> effects;
         Envelope amplitudeEnvelope;
         Filter filter;
+        const Parameter& pitchMod;
 
         Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
 
