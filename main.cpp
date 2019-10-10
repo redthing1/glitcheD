@@ -29,9 +29,9 @@ int main(int argc, const char *argv[]) {
             osc3
     };
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoffMod = std::make_shared<glitched::LFO>(8.0);
-    auto cutoff = glitched::Value(0.6, cutoffMod);
-    cutoff.modAmount = 0.2;
+    auto cutoffMod = std::make_shared<glitched::LFO>(16.0);
+    auto cutoff = glitched::Value(0.8, cutoffMod);
+    cutoff.modAmount = 0.1;
     auto resonance = glitched::Value(0.40);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::Instrument(voices, ampEnv, filter);
