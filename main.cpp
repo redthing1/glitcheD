@@ -5,15 +5,14 @@
 #include <vector>
 
 #include "constants.h"
-#include "track/SongWriter.h"
+#include "misc/songs.h"
 #include "synth/Oscillator.h"
 #include "synth/Filter.h"
-#include "util/Tuning.h"
 #include "synth/Instrument.h"
-#include "track/NoteMachine.h"
-#include "misc/songs.h"
 #include "synth/mod/LFO.h"
 #include "synth/effects/Overdrive.h"
+#include "track/NoteMachine.h"
+#include "track/SongWriter.h"
 
 int main(int argc, const char *argv[]) {
     auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
