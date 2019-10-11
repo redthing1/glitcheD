@@ -5,11 +5,9 @@
 
 glitched::Parameter::Parameter() = default;
 
-glitched::Value::Value(double value) : Value(value, Parameter()) {
-}
+glitched::Value::Value(double value) : Value(value, Parameter()) {}
 
-glitched::Value::Value(double value, const Parameter& mod) : val(value), mod(mod), modAmount(0.0) {
-}
+glitched::Value::Value(double value, const Parameter &mod) : val(value), mod(mod), modAmount(0.0) {}
 
 double glitched::Value::value(double t) const {
     if (modAmount < std::numeric_limits<double>::epsilon()) {
@@ -20,6 +18,4 @@ double glitched::Value::value(double t) const {
     return val + mVal;
 }
 
-double glitched::Parameter::value(double t) const {
-    return 0;
-}
+double glitched::Parameter::value(double t) const { return 0; }

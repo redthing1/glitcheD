@@ -13,9 +13,7 @@ glitched::SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
     audioFile.setAudioBuffer(audioBuffer);
 }
 
-bool glitched::SongWriter::save(std::string path) {
-    return audioFile.save(path, AudioFileFormat::Wave);
-}
+bool glitched::SongWriter::save(std::string path) { return audioFile.save(path, AudioFileFormat::Wave); }
 
 void glitched::SongWriter::insert(size_t pos, std::vector<double> buf) {
     for (int i = 0; i < buf.size(); i++) {

@@ -6,11 +6,11 @@
 
 #include "constants.h"
 #include "misc/songs.h"
-#include "synth/Oscillator.h"
 #include "synth/Filter.h"
 #include "synth/Instrument.h"
-#include "synth/mod/LFO.h"
+#include "synth/Oscillator.h"
 #include "synth/effects/Overdrive.h"
+#include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
 #include "track/SongWriter.h"
 
@@ -22,11 +22,7 @@ int main(int argc, const char *argv[]) {
     osc2.tune = +10;
     osc2.mix = 0.5;
     auto osc3 = glitched::Oscillator(glitched::Wave::Square);
-    auto voices = {
-            osc1,
-            osc2,
-            osc3
-    };
+    auto voices = {osc1, osc2, osc3};
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
     auto cutoffMod = glitched::LFO(16.0);
     auto cutoff = glitched::Value(0.8, cutoffMod);
@@ -48,4 +44,3 @@ int main(int argc, const char *argv[]) {
     songWriter.insert(0, noteMachine.audioBuffer);
     songWriter.save("out.wav");
 }
-

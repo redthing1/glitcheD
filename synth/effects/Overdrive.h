@@ -3,17 +3,17 @@
 //
 #pragma once
 
-#include "Effect.h"
 #include "../mod/Parameter.h"
+#include "Effect.h"
 
 namespace glitched {
-    class Overdrive : public Effect {
-    public:
-        const Parameter &gain;
-        const Parameter &threshold;
+class Overdrive : public Effect {
+  public:
+    const Parameter &gain;
+    const Parameter &threshold;
 
-        explicit Overdrive(const Parameter &gain, const Parameter &threshold);
+    explicit Overdrive(const Parameter &gain, const Parameter &threshold);
 
-        virtual double value(double v) const override;
-    };
-}
+    virtual double value(double v) const override;
+};
+} // namespace glitched

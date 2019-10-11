@@ -1,8 +1,8 @@
-#include <cmath>
-#include <stdexcept>
 #include "Oscillator.h"
 #include "../constants.h"
 #include "../util/Tuning.h"
+#include <cmath>
+#include <stdexcept>
 
 inline std::vector<double> makeBuffer(size_t sampleCount) {
     // The amount of samples the buffer must hold
@@ -25,7 +25,8 @@ std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double
         phase += delta;
 
         // when the wave hits 2Pi/360˚/full circle we have to reset the phase
-        if (phase >= tau) phase -= tau;
+        if (phase >= tau)
+            phase -= tau;
     }
 
     return buffer;
@@ -77,9 +78,7 @@ std::vector<double> glitched::Oscillator::genTri(double freq, double dur, double
     return buf;
 }
 
-inline double randf() {
-    return ((double) std::rand() / (RAND_MAX));
-}
+inline double randf() { return ((double)std::rand() / (RAND_MAX)); }
 
 std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
@@ -92,7 +91,7 @@ std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     return buf;
 }
 
-glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1) { }
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1) {}
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
     // apply tune to freq
@@ -100,18 +99,16 @@ std::vector<double> glitched::Oscillator::play(double freq, double dur, double a
     amp = amp * mix;
 
     switch (wave) {
-        case Wave::Sine:
-            return genSin(freq, dur, amp);
-        case Wave::Square:
-            return genSqr(freq, dur, amp);
-        case Wave::Saw:
-            return genSaw(freq, dur, amp);
-        case Wave::Triangle:
-            return genTri(freq, dur, amp);
-        case Wave::Noise:
-            return genNoise(dur, amp);
+    case Wave::Sine:
+        return genSin(freq, dur, amp);
+    case Wave::Square:
+        return genSqr(freq, dur, amp);
+    case Wave::Saw:
+        return genSaw(freq, dur, amp);
+    case Wave::Triangle:
+        return genTri(freq, dur, amp);
+    case Wave::Noise:
+        return genNoise(dur, amp);
     }
     throw std::invalid_argument("invalid waveform");
 }
-
-

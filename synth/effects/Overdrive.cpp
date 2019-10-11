@@ -4,10 +4,7 @@
 #include "Overdrive.h"
 
 glitched::Overdrive::Overdrive(const glitched::Parameter &gain, const glitched::Parameter &threshold)
-        : gain(gain), threshold(threshold) {
-
-}
-
+    : gain(gain), threshold(threshold) {}
 
 double glitched::Overdrive::value(double v) const {
     // apply gain
@@ -19,4 +16,3 @@ double glitched::Overdrive::value(double v) const {
     }
     return v;
 }
-

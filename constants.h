@@ -11,7 +11,7 @@ static const double CENT_RATIO = 1.0005777895065548;
 
 // note/release mix
 namespace glitched {
-    static const double MIX_THRESHOLD = 0.9;
-    static const double MIX_NOTE = 0.7;
-    static const double MIX_RELEASE = 0.4;
-}
+static const double MIX_THRESHOLD = 0.9;
+static const double MIX_NOTE = 0.7;
+static const double MIX_RELEASE = 0.4;
+} // namespace glitched

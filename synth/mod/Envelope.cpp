@@ -31,7 +31,4 @@ double glitched::Envelope::calc(bool held, double t) const {
     return level;
 }
 
-double glitched::Envelope::value(double t) const {
-    return calc(true, t);
-}
-
+double glitched::Envelope::value(double t) const { return calc(true, t); }
