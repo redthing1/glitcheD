@@ -38,9 +38,9 @@ int main(int argc, const char *argv[]) {
 
     auto fx1_gain = glitched::Value(1.5);
     auto fx1_threshold = glitched::Value(0.8);
-    auto fx1 = std::make_unique<glitched::Overdrive>(fx1_gain, fx1_threshold);
+    auto fx1 = std::make_shared<glitched::Overdrive>(fx1_gain, fx1_threshold);
 //    fx1->enabled = false;
-    instr1.effects.emplace_back(std::move(fx1));
+    instr1.effects.emplace_back(fx1);
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);
