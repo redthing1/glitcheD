@@ -29,7 +29,7 @@ int main(int argc, const char *argv[]) {
             osc3
     };
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoffMod = std::make_shared<glitched::LFO>(16.0);
+    auto cutoffMod = glitched::LFO(16.0);
     auto cutoff = glitched::Value(0.8, cutoffMod);
     cutoff.modAmount = 0.1;
     auto resonance = glitched::Value(0.40);
@@ -38,8 +38,7 @@ int main(int argc, const char *argv[]) {
 
     auto fx1_gain = glitched::Value(1.5);
     auto fx1_threshold = glitched::Value(0.8);
-    auto fx1 = std::make_shared<glitched::Overdrive>(fx1_gain, fx1_threshold);
-//    fx1->enabled = false;
+    auto fx1 = glitched::Overdrive(fx1_gain, fx1_threshold);
     instr1.effects.emplace_back(fx1);
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);

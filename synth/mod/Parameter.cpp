@@ -5,10 +5,10 @@
 
 glitched::Parameter::Parameter() = default;
 
-glitched::Value::Value(double value) : Value(value, std::make_shared<Parameter>()) {
+glitched::Value::Value(double value) : Value(value, Parameter()) {
 }
 
-glitched::Value::Value(double value, const std::shared_ptr<Parameter> mod) : val(value), mod(mod), modAmount(0.0) {
+glitched::Value::Value(double value, const Parameter& mod) : val(value), mod(mod), modAmount(0.0) {
 }
 
 double glitched::Value::value(double t) const {
@@ -16,7 +16,7 @@ double glitched::Value::value(double t) const {
         return val;
     }
     // calculate mod
-    auto mVal = mod->value(t) * modAmount;
+    auto mVal = mod.value(t) * modAmount;
     return val + mVal;
 }
 
