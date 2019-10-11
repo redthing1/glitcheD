@@ -5,7 +5,7 @@
 #include "Filter.h"
 
 glitched::Filter::Filter(glitched::FilterMode mode, const Parameter &cutoff, const Parameter &resonance)
-    : mode(mode), cutoff(cutoff), resonance(resonance), buf0(0), buf1(0), feedback(0) {}
+    : feedback(0), buf0(0), buf1(0), mode(mode), cutoff(cutoff), resonance(resonance) {}
 
 void glitched::Filter::calculateFeedback(double t) {
     feedback = resonance.value(t) + resonance.value(t) / (1 - cutoff.value(t));

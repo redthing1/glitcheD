@@ -17,10 +17,8 @@ std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double
 
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buffer = makeBuffer(sampleCount);
-    int a = buffer.size();
 
-    for (int i = 0; i < sampleCount; i++) // fill the buffer
-    {
+    for (size_t i = 0; i < sampleCount; i++) { // fill the buffer
         buffer[i] = std::sin(phase) * amp;
         phase += delta;
 
@@ -39,7 +37,7 @@ std::vector<double> glitched::Oscillator::genSqr(double freq, double dur, double
     for (int i = 1; i <= PARTIALS; i += 2) {
         auto partial = genSin(freq * i, dur, amp / i);
         // add the partial
-        for (int j = 0; j < sampleCount; j++) {
+        for (size_t j = 0; j < sampleCount; j++) {
             buf[j] += partial[j];
         }
     }
@@ -54,7 +52,7 @@ std::vector<double> glitched::Oscillator::genSaw(double freq, double dur, double
     for (int i = 1; i <= PARTIALS; i += 1) {
         auto partial = genSin(freq * i, dur, (amp * factor) / i);
         // add the partial
-        for (int j = 0; j < sampleCount; j++) {
+        for (size_t j = 0; j < sampleCount; j++) {
             buf[j] += partial[j];
         }
     }
@@ -70,7 +68,7 @@ std::vector<double> glitched::Oscillator::genTri(double freq, double dur, double
         auto partial = genSin(freq * i, dur, (sign * amp) / (i * i));
         sign = -sign;
         // add the partial
-        for (int j = 0; j < sampleCount; j++) {
+        for (size_t j = 0; j < sampleCount; j++) {
             buf[j] += partial[j];
         }
     }
@@ -83,9 +81,8 @@ inline double randf() { return ((double)std::rand() / (RAND_MAX)); }
 std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buf = makeBuffer(sampleCount);
-    int sign = 1;
-    for (int j = 0; j < sampleCount; j++) {
-        buf[j] = (randf() * 2) - 1;
+    for (size_t j = 0; j < sampleCount; j++) {
+        buf[j] = ((randf() * 2) - 1) * amp;
     }
 
     return buf;
