@@ -3,8 +3,9 @@ project(glitched)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(glitched
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 
+add_executable(glitched
         main.cpp
         constants.h
         misc/songs.h

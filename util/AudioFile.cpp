@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //=======================================================================
+#pragma GCC diagnostic ignored "-Weverything"
 
 #include "AudioFile.h"
 #include <fstream>
