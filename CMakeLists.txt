@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(glitched)
 
 set(CMAKE_CXX_STANDARD 17)
-
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 
 add_executable(glitched
@@ -32,4 +31,4 @@ add_executable(glitched
         util/AudioFile.h
         util/Tuning.cpp
         util/Tuning.h
-        )
+        synth/effects/Delay.cpp synth/effects/Delay.h)

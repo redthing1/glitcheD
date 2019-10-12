@@ -11,6 +11,7 @@ class Parameter {
     explicit Parameter();
     virtual double value(double t) const;
 };
+typedef std::shared_ptr<Parameter> Knob;
 
 class Value : public Parameter {
   public:

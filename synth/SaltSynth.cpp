@@ -36,7 +36,8 @@ std::vector<double> glitched::SaltSynth::play(uint16_t note, double dur, double 
         if (!effect.get().enabled)
             continue;
         for (int j = 0; j < sampleLength; j++) {
-            auto out = effect.get().value(buf[j]);
+            auto t = static_cast<double>(j) / SAMPLE_RATE;
+            auto out = effect.get().value(buf[j], t);
             buf[j] = out;
         }
     }

@@ -7,6 +7,8 @@ namespace glitched {
 class Effect {
   public:
     bool enabled = true;
-    virtual double value(double t) const { return 0; }
+
+    virtual double value(double v, double t) { return 0; }
+    virtual void reset() {}
 };
 } // namespace glitched

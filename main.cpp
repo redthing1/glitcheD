@@ -9,6 +9,7 @@
 #include "synth/Filter.h"
 #include "synth/Oscillator.h"
 #include "synth/SaltSynth.h"
+#include "synth/effects/Delay.h"
 #include "synth/effects/Overdrive.h"
 #include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
@@ -36,6 +37,11 @@ int main(int argc, const char *argv[]) {
     auto fx1_threshold = std::make_shared<glitched::Value>(0.8);
     auto fx1 = glitched::Overdrive(fx1_gain, fx1_threshold);
     instr1.effects.emplace_back(fx1);
+
+    auto fx2_time = std::make_shared<glitched::Value>(0.25);
+    auto fx2_gain = std::make_shared<glitched::Value>(0.5);
+    auto fx2 = glitched::Delay(fx2_time, fx2_gain);
+    instr1.effects.emplace_back(fx2);
 
     glitched::NoteMachine noteMachine(INT16_MAX, instr1, 32);
     noteMachine.loadProgram(demo_stardustCrusaders);

@@ -1,18 +1,22 @@
 //
-// Created by xdrie on 10/9/19.
+// Created by xdrie on 10/11/19.
 //
 #pragma once
 
 #include "../mod/Parameter.h"
 #include "Effect.h"
-
+#include <memory>
+#include <vector>
 namespace glitched {
-class Overdrive : public Effect {
-  public:
-    Knob gain;
-    Knob threshold;
 
-    explicit Overdrive(Knob gain, Knob threshold);
+class Delay : public Effect {
+  public:
+    Knob time;
+    Knob gain;
+
+    std::vector<double> buffer;
+
+    explicit Delay(Knob time, Knob gain);
 
     virtual double value(double v, double t) override;
 };

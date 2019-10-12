@@ -5,10 +5,10 @@
 
 #include <utility>
 
-glitched::Overdrive::Overdrive(std::shared_ptr<Parameter> gain, std::shared_ptr<Parameter> threshold)
+glitched::Overdrive::Overdrive(Knob gain, Knob threshold)
     : gain(std::move(gain)), threshold(std::move(threshold)) {}
 
-double glitched::Overdrive::value(double v) const {
+double glitched::Overdrive::value(double v, double t) {
     // apply gain
     v *= gain->value(0);
     if (v < -threshold->value(0)) {
