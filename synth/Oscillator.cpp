@@ -20,7 +20,9 @@ std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double
         buffer[i] = std::sin(phase) * amp;
         // apply pitch mod
         double t = static_cast<double>(i) / SAMPLE_RATE;
-        cFreq = freq + pitchMod.value(t);
+        if (pitchMod) {
+            cFreq = freq + pitchMod->value(t);
+        }
         phase += (tau * cFreq) / SAMPLE_RATE;
     }
 
@@ -85,9 +87,7 @@ std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     return buf;
 }
 
-glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1),
-pitchMod(std::move(Value(0)))
-{}
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1) {}
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
     // apply tune to freq

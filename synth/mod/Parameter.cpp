@@ -3,18 +3,20 @@
 //
 #include "Parameter.h"
 
+#include <utility>
+
 glitched::Parameter::Parameter() = default;
 
-glitched::Value::Value(double value) : Value(value, Parameter()) {}
+glitched::Value::Value(double value) : Value(value, std::make_shared<Parameter>(), 0) {}
 
-glitched::Value::Value(double value, const Parameter &mod) : val(value), mod(mod), modAmount(0.0) {}
+glitched::Value::Value(double value, std::shared_ptr<Parameter> mod, double modAmount) : val(value), mod(std::move(mod)), modAmount(modAmount) {}
 
 double glitched::Value::value(double t) const {
-    if (modAmount < std::numeric_limits<double>::epsilon()) {
+    if (!mod || modAmount < std::numeric_limits<double>::epsilon()) {
         return val;
     }
     // calculate mod
-    auto mVal = mod.value(t) * modAmount;
+    auto mVal = mod->value(t) * modAmount;
     return val + mVal;
 }
 

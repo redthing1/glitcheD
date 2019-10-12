@@ -14,7 +14,6 @@ class SaltSynth {
     std::vector<std::reference_wrapper<glitched::Effect>> effects;
     Envelope amplitudeEnvelope;
     Filter filter;
-    const Parameter &pitchMod;
 
     SaltSynth(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
 

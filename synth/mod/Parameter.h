@@ -16,11 +16,11 @@ class Value : public Parameter {
   public:
     double val;
 
-    const Parameter &mod;
+    std::shared_ptr<Parameter> mod;
     double modAmount;
 
     explicit Value(double value);
-    explicit Value(double value, const Parameter &mod);
+    explicit Value(double value, std::shared_ptr<Parameter> mod, double modAmount);
     double value(double t) const override;
 };
 } // namespace glitched

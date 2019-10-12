@@ -25,7 +25,7 @@ class Oscillator {
     int tune;
     double mix;
 
-    Parameter &pitchMod;
+    std::shared_ptr<Parameter> pitchMod;
 
     explicit Oscillator(Wave wave);
 

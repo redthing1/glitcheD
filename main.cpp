@@ -22,13 +22,12 @@ int main(int argc, const char *argv[]) {
     osc2.tune = +10;
     osc2.mix = 0.5;
     auto osc3 = glitched::Oscillator(glitched::Wave::Square);
-    auto osc3_pitchMod = glitched::LFO(4.0);
-    osc3.pitchMod = osc3;
+    auto osc3_pitchMod = std::make_shared<glitched::LFO>(4.0, 40.0);
+    osc3.pitchMod = osc3_pitchMod;
     auto voices = {osc1, osc2, osc3};
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoffMod = glitched::LFO(16.0);
-    auto cutoff = glitched::Value(0.8, cutoffMod);
-    cutoff.modAmount = 0.1;
+    auto cutoffMod = std::make_shared<glitched::LFO>(16.0);
+    auto cutoff = glitched::Value(0.8, cutoffMod, 0.1);
     auto resonance = glitched::Value(0.40);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::SaltSynth(voices, ampEnv, filter);
