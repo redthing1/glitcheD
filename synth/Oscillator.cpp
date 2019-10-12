@@ -21,7 +21,7 @@ std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double
         // apply pitch mod
         double t = static_cast<double>(i) / SAMPLE_RATE;
         if (pitchMod) {
-            cFreq = freq + pitchMod->value(t);
+            cFreq = glitched::detune(freq, static_cast<int>(pitchMod->value(t) * 100));
         }
         phase += (tau * cFreq) / SAMPLE_RATE;
     }

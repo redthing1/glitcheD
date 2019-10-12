@@ -9,10 +9,10 @@
 namespace glitched {
 class Overdrive : public Effect {
   public:
-    const Parameter &gain;
-    const Parameter &threshold;
+    std::shared_ptr<Parameter> gain;
+    std::shared_ptr<Parameter> threshold;
 
-    explicit Overdrive(const Parameter &gain, const Parameter &threshold);
+    explicit Overdrive(std::shared_ptr<Parameter> gain, std::shared_ptr<Parameter> threshold);
 
     virtual double value(double v) const override;
 };

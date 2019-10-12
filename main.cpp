@@ -22,18 +22,18 @@ int main(int argc, const char *argv[]) {
     osc2.tune = +10;
     osc2.mix = 0.5;
     auto osc3 = glitched::Oscillator(glitched::Wave::Square);
-    auto osc3_pitchMod = std::make_shared<glitched::LFO>(4.0, 40.0);
+    auto osc3_pitchMod = std::make_shared<glitched::LFO>(4.0, 0.5);
     osc3.pitchMod = osc3_pitchMod;
     auto voices = {osc1, osc2, osc3};
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
-    auto cutoffMod = std::make_shared<glitched::LFO>(16.0);
-    auto cutoff = glitched::Value(0.8, cutoffMod, 0.1);
+    auto cutoffMod = std::make_shared<glitched::LFO>(2.0);
+    auto cutoff = glitched::Value(0.6, cutoffMod, 0.1);
     auto resonance = glitched::Value(0.40);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
     auto instr1 = glitched::SaltSynth(voices, ampEnv, filter);
 
-    auto fx1_gain = glitched::Value(1.5);
-    auto fx1_threshold = glitched::Value(0.8);
+    auto fx1_gain = std::make_shared<glitched::Value>(1.5);
+    auto fx1_threshold = std::make_shared<glitched::Value>(0.8);
     auto fx1 = glitched::Overdrive(fx1_gain, fx1_threshold);
     instr1.effects.emplace_back(fx1);
 
