@@ -1,7 +1,7 @@
 #include "NoteMachine.h"
 #include "../constants.h"
 
-glitched::NoteMachine::NoteMachine(uint16_t memorySize, Instrument &instrument, double duration)
+glitched::NoteMachine::NoteMachine(uint16_t memorySize, SaltSynth &instrument, double duration)
     : programCounter(0), bufferPosition(0), instrument(instrument) {
     this->memory.resize(memorySize);
     stackPointer = memorySize - 1;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../synth/Instrument.h"
+#include "../synth/SaltSynth.h"
 #include <cstdint>
 #include <vector>
 
@@ -30,7 +30,7 @@ class NoteMachine {
     void copyAudio(std::vector<double> buffer, uint32_t position);
 
   public:
-    Instrument &instrument;
+    SaltSynth &instrument;
     std::vector<double> audioBuffer;
 
     enum Instruction : byte {
@@ -48,7 +48,7 @@ class NoteMachine {
         RET = 0x99,
     };
 
-    explicit NoteMachine(uint16_t memorySize, Instrument &instrument, double duration);
+    explicit NoteMachine(uint16_t memorySize, SaltSynth &instrument, double duration);
     void loadProgram(std::vector<byte> program);
     void execute();
 };

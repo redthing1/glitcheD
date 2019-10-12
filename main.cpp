@@ -7,8 +7,8 @@
 #include "constants.h"
 #include "misc/songs.h"
 #include "synth/Filter.h"
-#include "synth/Instrument.h"
 #include "synth/Oscillator.h"
+#include "synth/SaltSynth.h"
 #include "synth/effects/Overdrive.h"
 #include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
@@ -29,7 +29,7 @@ int main(int argc, const char *argv[]) {
     cutoff.modAmount = 0.1;
     auto resonance = glitched::Value(0.40);
     auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
-    auto instr1 = glitched::Instrument(voices, ampEnv, filter);
+    auto instr1 = glitched::SaltSynth(voices, ampEnv, filter);
 
     auto fx1_gain = glitched::Value(1.5);
     auto fx1_threshold = glitched::Value(0.8);

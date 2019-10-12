@@ -8,7 +8,7 @@
 #include <memory>
 
 namespace glitched {
-class Instrument {
+class SaltSynth {
   public:
     std::vector<Oscillator> voices;
     std::vector<std::reference_wrapper<glitched::Effect>> effects;
@@ -16,7 +16,7 @@ class Instrument {
     Filter filter;
     const Parameter &pitchMod;
 
-    Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
+    SaltSynth(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
 
     std::vector<double> play(uint16_t note, double dur, double vol);
 };

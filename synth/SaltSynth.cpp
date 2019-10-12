@@ -1,14 +1,14 @@
-#include "Instrument.h"
+#include "SaltSynth.h"
 
 #include "../constants.h"
 #include "../util/Tuning.h"
 #include <utility>
 
-glitched::Instrument::Instrument(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter)
+glitched::SaltSynth::SaltSynth(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter)
     : voices(std::move(voices)), amplitudeEnvelope(std::move(amplitudeEnvelope)), filter(filter),
       pitchMod(std::move(Value(0))) {}
 
-std::vector<double> glitched::Instrument::play(uint16_t note, double dur, double vol) {
+std::vector<double> glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
     auto buf = std::vector<double>();
     //    buf.resize(dur * SAMPLE_RATE);
     auto sampleLength = dur * SAMPLE_RATE;

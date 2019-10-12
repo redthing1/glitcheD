@@ -11,8 +11,8 @@ add_executable(glitched
         misc/songs.h
         synth/Oscillator.cpp
         synth/Oscillator.h
-        synth/Instrument.cpp
-        synth/Instrument.h
+        synth/SaltSynth.cpp
+        synth/SaltSynth.h
         synth/mod/Envelope.cpp
         synth/mod/Envelope.h
         synth/Filter.cpp
