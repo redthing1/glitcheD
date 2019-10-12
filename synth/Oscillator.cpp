@@ -12,19 +12,16 @@ inline std::vector<double> makeBuffer(size_t sampleCount) {
 }
 
 std::vector<double> glitched::Oscillator::genSin(double freq, double dur, double amp, double phase) {
-    // The phase increment is the phase value the wave increases per sample
-    double delta = (tau * freq) / SAMPLE_RATE;
-
     size_t sampleCount = SAMPLE_RATE * dur;
     auto buffer = makeBuffer(sampleCount);
+    auto cFreq = freq;
 
     for (size_t i = 0; i < sampleCount; i++) { // fill the buffer
         buffer[i] = std::sin(phase) * amp;
-        phase += delta;
-
-        // when the wave hits 2Pi/360˚/full circle we have to reset the phase
-        if (phase >= tau)
-            phase -= tau;
+        // apply pitch mod
+        double t = static_cast<double>(i) / SAMPLE_RATE;
+        cFreq = freq + pitchMod.value(t);
+        phase += (tau * cFreq) / SAMPLE_RATE;
     }
 
     return buffer;
@@ -88,7 +85,9 @@ std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     return buf;
 }
 
-glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1) {}
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1),
+pitchMod(std::move(Value(0)))
+{}
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
     // apply tune to freq

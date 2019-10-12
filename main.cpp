@@ -22,6 +22,8 @@ int main(int argc, const char *argv[]) {
     osc2.tune = +10;
     osc2.mix = 0.5;
     auto osc3 = glitched::Oscillator(glitched::Wave::Square);
+    auto osc3_pitchMod = glitched::LFO(4.0);
+    osc3.pitchMod = osc3;
     auto voices = {osc1, osc2, osc3};
     auto ampEnv = glitched::Envelope(0.05f, 0.2f, 0.7f, 0.4f);
     auto cutoffMod = glitched::LFO(16.0);
