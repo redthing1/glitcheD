@@ -87,10 +87,11 @@ std::vector<double> glitched::Oscillator::genNoise(double dur, double amp) {
     return buf;
 }
 
-glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), mix(1) {}
+glitched::Oscillator::Oscillator(Wave wave) : wave(wave), tune(0), transpose(0), mix(1) {}
 
 std::vector<double> glitched::Oscillator::play(double freq, double dur, double amp) {
     // apply tune to freq
+    freq = glitched::detune(freq, transpose * 100);
     freq = glitched::detune(freq, tune);
     amp = amp * mix;
 

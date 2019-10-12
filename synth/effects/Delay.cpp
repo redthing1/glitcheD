@@ -18,9 +18,10 @@ double glitched::Delay::value(double v, double t) {
     }
     auto out = v;
     if (t > delTime) {
-        auto f = buffer[samp - delTime] * gain->value(t);
+        auto delSamp = delTime * SAMPLE_RATE;
+        auto f = buffer[samp - delSamp] * gain->value(t);
         out = (v + f) / 2;
     }
-    buffer[samp] = v;
+    buffer[static_cast<long>(samp)] = v;
     return out;
 }

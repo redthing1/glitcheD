@@ -23,6 +23,7 @@ class Oscillator {
   public:
     Wave wave;
     int tune;
+    int transpose;
     double mix;
 
     std::shared_ptr<Parameter> pitchMod;
