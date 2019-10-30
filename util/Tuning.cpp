@@ -1,5 +1,5 @@
 #include "Tuning.h"
-#include "../constants.h"
+#include "../defs.h"
 #include <cmath>
 
 // https://en.wikipedia.org/wiki/Equal_temperament#General_formulas_for_the_equal-tempered_interval

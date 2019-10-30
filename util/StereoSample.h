@@ -3,4 +3,11 @@
 //
 #pragma once
 
-class StereoSample {};
+#include "../defs.h"
+namespace glitched{
+class StereoSample {
+  public:
+    Sample l;
+    Sample r;
+};
+}

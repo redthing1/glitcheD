@@ -2,7 +2,7 @@
 // Created by xdrie on 10/11/19.
 //
 #include "Delay.h"
-#include "../../constants.h"
+#include "../../defs.h"
 #include <utility>
 
 glitched::Delay::Delay(glitched::Knob time, glitched::Knob gain) : time(std::move(time)), gain(std::move(gain)) {

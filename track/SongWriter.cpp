@@ -1,14 +1,15 @@
 
 #include "SongWriter.h"
-#include "../constants.h"
+#include "../defs.h"
 
 glitched::SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
-    const int numChannels = 1;
+    const int numChannels = 2; // stereo audio
     audioFile.setAudioBufferSize(numChannels, size);
     audioFile.setBitDepth(BIT_DEPTH);
     audioFile.setSampleRate(SAMPLE_RATE);
     AudioFile<double>::AudioBuffer audioBuffer;
     audioBuffer.resize(numChannels);
+    audioBuffer[0].resize(size);
     audioBuffer[0].resize(size);
     audioFile.setAudioBuffer(audioBuffer);
 }

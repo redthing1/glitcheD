@@ -1,5 +1,5 @@
 #include "NoteMachine.h"
-#include "../constants.h"
+#include "../defs.h"
 
 glitched::NoteMachine::NoteMachine(uint16_t memorySize, SaltSynth &instrument, double duration)
     : programCounter(0), bufferPosition(0), instrument(instrument) {
