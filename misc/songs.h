@@ -31,7 +31,7 @@ static const std::vector<uint8_t> demo_testSong1 = {
 static const std::vector<uint8_t> demo_stardustCrusaders = {
         glitched::NoteMachine::VEL, 96,
         glitched::NoteMachine::DUR, 24,
-        glitched::NoteMachine::BPS, 96,
+        glitched::NoteMachine::BPS, 48,
 
         // -- jotaro's theme
         glitched::NoteMachine::DUR, 36,

@@ -31,4 +31,5 @@ add_executable(glitched
         util/AudioFile.h
         util/Tuning.cpp
         util/Tuning.h
-        synth/effects/Delay.cpp synth/effects/Delay.h)
+        synth/effects/Delay.cpp
+        synth/effects/Delay.h synth/Instrument.h)

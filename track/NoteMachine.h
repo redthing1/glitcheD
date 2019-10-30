@@ -30,7 +30,7 @@ class NoteMachine {
     void copyAudio(std::vector<double> buffer, uint32_t position);
 
   public:
-    SaltSynth &instrument;
+    Instrument &instrument;
     std::vector<double> audioBuffer;
 
     enum Instruction : byte {
