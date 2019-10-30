@@ -22,6 +22,9 @@ currently `glitched` runs as an offline synthesizer, meaning that it computes it
 inputs are hardcoded and thus outputs are deterministic.
 this will be improved soon, allowing the user to provide NoteAsm code to make it more interesting to actually run the program on your own.
 
-for information on NoteAsm, see `[noteasm.md](doc/noteasm.md)`
+### sequencer
 
+the sequencer operates by executing NoteAsm instructions in a virtual machine and mixing the output into audio buffers.
+
+read the page on [NoteAsm](doc/noteasm.md) for information on NoteAsm.
 
