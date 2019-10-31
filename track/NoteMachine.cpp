@@ -1,7 +1,7 @@
 #include "NoteMachine.h"
 #include "../defs.h"
 
-glitched::NoteMachine::NoteMachine(uint16_t memorySize, SaltSynth &instrument, double duration)
+glitched::NoteMachine::NoteMachine(uint16_t memorySize, Instrument &instrument, double duration)
     : programCounter(0), bufferPosition(0), instrument(instrument) {
     this->memory.resize(memorySize);
     stackPointer = memorySize - 1;
@@ -33,7 +33,7 @@ void glitched::NoteMachine::execute() {
             byte note = this->memory[programCounter++ + 1];
             auto dur = getDuration(noteDuration);
             auto noteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
-            copyAudio(noteAudioBuffer, bufferPosition);
+            copyAudio(StereoSample::fromMono(noteAudioBuffer), bufferPosition);
             bufferPosition += dur * SAMPLE_RATE;
             break;
         }
@@ -60,7 +60,8 @@ void glitched::NoteMachine::execute() {
             auto dur = getDuration(noteDuration);
             while (this->memory[++stackPointer] != FRAME_DELIMITER) {
                 byte note = this->memory[stackPointer];
-                auto noteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
+                auto monoNoteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
+                auto noteAudioBuffer = StereoSample::fromMono(monoNoteAudioBuffer);
                 copyAudio(noteAudioBuffer, bufferPosition);
             }
             bufferPosition += dur * SAMPLE_RATE;
@@ -92,8 +93,6 @@ double glitched::NoteMachine::getDuration(glitched::NoteMachine::byte dur) {
 
 double glitched::NoteMachine::getVelocity(glitched::NoteMachine::byte dur) { return noteVelocity / 128.0; }
 
-void glitched::NoteMachine::copyAudio(std::vector<double> buffer, uint32_t position) {
-    for (int i = 0; i < buffer.size(); i++) {
-        audioBuffer[position + i] += buffer[i];
-    }
+void glitched::NoteMachine::copyAudio(StereoSample buffer, uint32_t position) {
+    StereoSample::copy(buffer, audioBuffer, position);
 }

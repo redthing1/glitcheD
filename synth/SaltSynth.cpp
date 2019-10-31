@@ -9,7 +9,7 @@ glitched::SaltSynth::SaltSynth(std::vector<Oscillator> voices, Envelope amplitud
 
 }
 
-std::vector<double> glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
+glitched::Sample glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
     auto buf = std::vector<double>();
     //    buf.resize(dur * SAMPLE_RATE);
     auto sampleLength = dur * SAMPLE_RATE;

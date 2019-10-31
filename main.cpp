@@ -23,7 +23,8 @@ int main(int argc, const char *argv[]) {
     noteMachine.loadProgram(demo_stardustCrusaders);
     noteMachine.execute();
 
-    glitched::SongWriter songWriter(noteMachine.audioBuffer.size());
-    songWriter.insert(0, noteMachine.audioBuffer);
+    // TODO: write stereo to songwriter
+    glitched::SongWriter songWriter(noteMachine.audioBuffer.l.size());
+    songWriter.insert(0, noteMachine.audioBuffer.l);
     songWriter.save("out.wav");
 }

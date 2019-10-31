@@ -16,8 +16,9 @@ glitched::SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
 
 bool glitched::SongWriter::save(std::string path) { return audioFile.save(path, AudioFileFormat::Wave); }
 
-void glitched::SongWriter::insert(size_t pos, std::vector<double> buf) {
-    for (int i = 0; i < buf.size(); i++) {
+void glitched::SongWriter::insert(size_t pos, glitched::Sample buf) {
+    // TODO: update to use stereo
+    for (size_t i = 0; i < buf.size(); i++) {
         audioFile.samples[0][pos + i] += buf[i];
     }
 }

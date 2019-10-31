@@ -9,5 +9,8 @@ class StereoSample {
   public:
     Sample l;
     Sample r;
+    void resize(size_t size);
+    static StereoSample fromMono(Sample monoSample);
+    static void copy(StereoSample& source, StereoSample& dest, uint32_t position);
 };
 }
