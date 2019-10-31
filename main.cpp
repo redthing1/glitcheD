@@ -14,16 +14,17 @@
 #include "synth/effects/Overdrive.h"
 #include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
-#include "track/SongWriter.h"
+#include "track/WaveHelper.h"
 
 int main(int argc, const char *argv[]) {
-    auto instr1 = glitched::SandSynth();
+    // load audio data for granular sampling
+    auto grainSource = glitched::WaveHelper::read("samp/glsamp_1.wav");
+    auto sandy = glitched::SandSynth();
+    sandy.grind(grainSource);
 
-    glitched::NoteMachine noteMachine(INT16_MAX, instr1, 10);
-    noteMachine.loadProgram(demo_stardustCrusaders);
+    glitched::NoteMachine noteMachine(INT16_MAX, sandy, 8);
+    noteMachine.loadProgram(demo_basic);
     noteMachine.execute();
 
-    glitched::SongWriter songWriter(noteMachine.audioBuffer.size());
-    songWriter.insert(0, noteMachine.audioBuffer);
-    songWriter.save("out.wav");
+    glitched::WaveHelper::save(noteMachine.audioBuffer, "out.wav");
 }

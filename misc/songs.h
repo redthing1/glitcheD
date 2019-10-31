@@ -6,6 +6,24 @@
 
 // clang-format off
 
+static const std::vector<uint8_t> demo_basic = {
+    glitched::NoteMachine::VEL, 96,
+    glitched::NoteMachine::DUR, 24,
+    glitched::NoteMachine::BPS, 48,
+
+    glitched::NoteMachine::DUR, 48,
+    glitched::NoteMachine::PLAY, 49,
+    glitched::NoteMachine::PLAY, 51,
+    glitched::NoteMachine::PLAY, 53,
+    glitched::NoteMachine::PLAY, 54,
+    glitched::NoteMachine::PLAY, 56,
+    glitched::NoteMachine::PLAY, 58,
+    glitched::NoteMachine::PLAY, 60,
+    glitched::NoteMachine::PLAY, 61,
+
+    glitched::NoteMachine::RET,
+};
+
 static const std::vector<uint8_t> demo_testSong1 = {
         glitched::NoteMachine::VEL, 96,
         glitched::NoteMachine::DUR, 24,

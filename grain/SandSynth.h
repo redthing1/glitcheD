@@ -9,8 +9,13 @@
 
 namespace glitched {
 class SandSynth : public Instrument {
+  private:
+    StereoSample grains;
+    int grainLength = 0;
+    int grainSpace = 0;
+    size_t grainStart(int seq); // compute the starting sample of the grain given the grain number
   public:
-    void grind(Sample sample);
+    void grind(StereoSample sample);
     virtual glitched::StereoSample play(uint16_t note, double dur, double vol) override;
 };
 }

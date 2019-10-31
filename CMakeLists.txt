@@ -25,8 +25,8 @@ add_executable(glitched
         synth/effects/Overdrive.h
         track/NoteMachine.cpp
         track/NoteMachine.h
-        track/SongWriter.cpp
-        track/SongWriter.h
+        track/WaveHelper.cpp
+        track/WaveHelper.h
         util/AudioFile.cpp
         util/AudioFile.h
         util/Tuning.cpp
