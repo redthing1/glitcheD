@@ -11,8 +11,12 @@ namespace glitched {
 class SandSynth : public Instrument {
   private:
     StereoSample grains;
-    int grainLength = 0;
-    int grainSpace = 0;
+    int grainLength = 0; // length of each sampled grain
+    int grainDist = 0; // space between sampled grains
+    int frameRamp = 0;
+    int frameHold = 0;
+    int frameSpace = 0;
+
     size_t grainStart(int seq); // compute the starting sample of the grain given the grain number
   public:
     void grind(StereoSample sample);
