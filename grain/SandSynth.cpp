@@ -11,16 +11,6 @@ glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
     buf.resize(dur * SAMPLE_RATE);
     int sampleLength = dur * SAMPLE_RATE;
     auto freq = glitched::note(note);
-    auto samplesPerPeriod = SAMPLE_RATE / freq;
-
-    // TODO: proper granular synthesis with envelopes and more
-    // play a bunch of grains
-    //    for (int i = 0; i < sampleLength; i++) {
-    //        int grainSeq = i / samplesPerPeriod; // start new grains at every frequency cycle
-    //        int grainPos = i % grainLength;
-    //        buf.l[i] = grains.l[grainStart(grainSeq) + grainPos];
-    //        buf.r[i] = grains.r[grainStart(grainSeq) + grainPos];
-    //    }
 
     int frameSpace = SAMPLE_RATE / freq;
     int grainsInSample = sampleLength / frameSpace;
@@ -47,7 +37,6 @@ glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
             }
 
             // mix the sample into the buffer
-//            int grainSeq = i / samplesPerPeriod; // start new grains at every frequency cycle
             int grainSeq = g;
             int grainPos = i % grainLength;
             buf.l[noteSamplePos] += grains.l[grainStart(grainSeq) + grainPos] * v;
@@ -68,7 +57,6 @@ void SandSynth::grind(StereoSample sample) {
     // set grain frame playback parameters
     frameRamp = 0.004 * SAMPLE_RATE;
     frameHold = 0.002 * SAMPLE_RATE;
-//    frameSpace = 0.008 * SAMPLE_RATE;
 }
 size_t SandSynth::grainStart(int seq) {
     size_t grainWidth = grainLength * seq;
