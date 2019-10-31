@@ -39,8 +39,8 @@ glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
             // mix the sample into the buffer
             int grainSeq = g;
             int grainPos = i % grainLength;
-            buf.l[noteSamplePos] += grains.l[grainStart(grainSeq) + grainPos] * v;
-            buf.r[noteSamplePos] += grains.r[grainStart(grainSeq) + grainPos] * v;
+            buf.l[noteSamplePos] += grains.l[grainStart(grainSeq) + grainPos] * v * grainMix;
+            buf.r[noteSamplePos] += grains.r[grainStart(grainSeq) + grainPos] * v * grainMix;
         }
     }
 
@@ -50,13 +50,13 @@ void SandSynth::grind(StereoSample sample) {
     grains = sample;
     auto sampleLength = sample.size();
     // split into tiny grains
-    grainLength = 0.005 * SAMPLE_RATE;
-    // set spaces between grain sampling
-    grainDist = 0.0025 * SAMPLE_RATE;
 
+    // set spaces between grain sampling
+    grainDist = 0.001 * SAMPLE_RATE;
     // set grain frame playback parameters
-    frameRamp = 0.004 * SAMPLE_RATE;
-    frameHold = 0.002 * SAMPLE_RATE;
+    frameRamp = 0.0005 * SAMPLE_RATE;
+    frameHold = 0.0005 * SAMPLE_RATE;
+    grainLength = frameRamp * 2 + frameHold;
 }
 size_t SandSynth::grainStart(int seq) {
     size_t grainWidth = grainLength * seq;
