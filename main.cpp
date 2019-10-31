@@ -18,7 +18,7 @@
 
 int main(int argc, const char *argv[]) {
     // load audio data for granular sampling
-    auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
+    auto grainSource = glitched::WaveHelper::read("samp/glsamp_1.wav");
     auto sandy = glitched::SandSynth();
     sandy.grind(grainSource);
 

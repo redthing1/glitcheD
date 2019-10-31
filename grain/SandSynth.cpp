@@ -54,8 +54,8 @@ void SandSynth::grind(StereoSample sample) {
     // set spaces between grain sampling
     grainDist = 0.001 * SAMPLE_RATE;
     // set grain frame playback parameters
-    frameRamp = 0.0005 * SAMPLE_RATE;
-    frameHold = 0.0005 * SAMPLE_RATE;
+    frameRamp = 0.0003 * SAMPLE_RATE;
+    frameHold = 0.0008 * SAMPLE_RATE;
     grainLength = frameRamp * 2 + frameHold;
 }
 size_t SandSynth::grainStart(int seq) {
