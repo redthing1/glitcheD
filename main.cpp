@@ -18,12 +18,12 @@
 
 int main(int argc, const char *argv[]) {
     // load audio data for granular sampling
-    auto grainSource = glitched::WaveHelper::read("samp/glsamp_1.wav");
+    auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
     auto sandy = glitched::SandSynth();
     sandy.grind(grainSource);
 
-    glitched::NoteMachine noteMachine(INT16_MAX, sandy, 8);
-    noteMachine.loadProgram(demo_basic);
+    glitched::NoteMachine noteMachine(INT16_MAX, sandy, 12);
+    noteMachine.loadProgram(demo_generate_scale());
     noteMachine.execute();
 
     glitched::WaveHelper::save(noteMachine.audioBuffer, "out.wav");

@@ -6,6 +6,25 @@
 
 // clang-format off
 
+std::vector<uint8_t> demo_generate_scale() {
+    std::vector<uint8_t> scale = {
+        glitched::NoteMachine::VEL, 96,
+        glitched::NoteMachine::DUR, 16,
+        glitched::NoteMachine::BPS, 64 };
+    // add scale notes
+
+    int startNote = 25;
+    int octaves = 5;
+    for (int note = startNote; note < (startNote + 12 * octaves); note += 2) { // whole tone scale
+        scale.push_back(glitched::NoteMachine::PLAY);
+        scale.push_back(note);
+    }
+
+    scale.push_back(glitched::NoteMachine::RET);
+
+    return scale;
+}
+
 static const std::vector<uint8_t> demo_basic = {
     glitched::NoteMachine::VEL, 96,
     glitched::NoteMachine::DUR, 24,
