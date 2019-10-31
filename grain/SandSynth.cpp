@@ -22,6 +22,7 @@ glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
     //        buf.r[i] = grains.r[grainStart(grainSeq) + grainPos];
     //    }
 
+    int frameSpace = SAMPLE_RATE / freq;
     int grainsInSample = sampleLength / frameSpace;
     int grainFrame = frameRamp * 2 + frameHold;
     int concurrentGrains = grainFrame / frameSpace; // the maximum number of grains playing at a time
@@ -67,7 +68,7 @@ void SandSynth::grind(StereoSample sample) {
     // set grain frame playback parameters
     frameRamp = 0.004 * SAMPLE_RATE;
     frameHold = 0.002 * SAMPLE_RATE;
-    frameSpace = 0.008 * SAMPLE_RATE;
+//    frameSpace = 0.008 * SAMPLE_RATE;
 }
 size_t SandSynth::grainStart(int seq) {
     size_t grainWidth = grainLength * seq;

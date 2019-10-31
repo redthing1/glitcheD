@@ -15,7 +15,7 @@ class SandSynth : public Instrument {
     int grainDist = 0; // space between sampled grains
     int frameRamp = 0;
     int frameHold = 0;
-    int frameSpace = 0;
+//    int frameSpace = 0;
 
     size_t grainStart(int seq); // compute the starting sample of the grain given the grain number
   public:

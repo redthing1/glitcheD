@@ -11,15 +11,29 @@ static const std::vector<uint8_t> demo_basic = {
     glitched::NoteMachine::DUR, 24,
     glitched::NoteMachine::BPS, 48,
 
-    glitched::NoteMachine::DUR, 48,
-    glitched::NoteMachine::PLAY, 49,
+    glitched::NoteMachine::DUR, 16,
+    glitched::NoteMachine::PLAY, 49, // A
     glitched::NoteMachine::PLAY, 51,
     glitched::NoteMachine::PLAY, 53,
     glitched::NoteMachine::PLAY, 54,
     glitched::NoteMachine::PLAY, 56,
     glitched::NoteMachine::PLAY, 58,
     glitched::NoteMachine::PLAY, 60,
-    glitched::NoteMachine::PLAY, 61,
+    glitched::NoteMachine::PLAY, 61, // A
+    glitched::NoteMachine::PLAY, 63,
+    glitched::NoteMachine::PLAY, 65,
+    glitched::NoteMachine::PLAY, 66,
+    glitched::NoteMachine::PLAY, 68,
+    glitched::NoteMachine::PLAY, 70,
+    glitched::NoteMachine::PLAY, 72,
+    glitched::NoteMachine::PLAY, 73, // A
+    glitched::NoteMachine::PLAY, 75,
+    glitched::NoteMachine::PLAY, 77,
+    glitched::NoteMachine::PLAY, 78,
+    glitched::NoteMachine::PLAY, 80,
+    glitched::NoteMachine::PLAY, 82,
+    glitched::NoteMachine::PLAY, 84,
+    glitched::NoteMachine::PLAY, 85, // A
 
     glitched::NoteMachine::RET,
 };
