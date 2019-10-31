@@ -3,10 +3,11 @@
 //
 #pragma once
 
+#include "../util/StereoSample.h"
 #include <cstdint>
 #include <vector>
 
 class Instrument {
   public:
-    virtual glitched::Sample play(uint16_t note, double dur, double vol) = 0;
+    virtual glitched::StereoSample play(uint16_t note, double dur, double vol) = 0;
 };

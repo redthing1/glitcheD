@@ -26,8 +26,8 @@ class NoteMachine {
 
     const byte FRAME_DELIMITER = 0x00;
 
-    double getDuration(byte dur);
-    double getVelocity(byte vel);
+    double getDuration();
+    double getVelocity();
     void copyAudio(StereoSample buffer, uint32_t position);
 
   public:

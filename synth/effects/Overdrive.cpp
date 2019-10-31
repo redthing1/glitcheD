@@ -10,11 +10,12 @@ glitched::Overdrive::Overdrive(Knob gain, Knob threshold)
 
 double glitched::Overdrive::value(double v, double t) {
     // apply gain
-    v *= gain->value(0);
-    if (v < -threshold->value(0)) {
-        v = -threshold->value(0);
-    } else if (v > threshold->value(0)) {
-        v = threshold->value(0);
+    t = 0; // use default zero value
+    v *= gain->value(t);
+    if (v < -threshold->value(t)) {
+        v = -threshold->value(t);
+    } else if (v > threshold->value(t)) {
+        v = threshold->value(t);
     }
     return v;
 }

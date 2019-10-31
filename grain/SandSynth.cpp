@@ -5,8 +5,8 @@
 #include "../defs.h"
 
 namespace glitched {
-Sample SandSynth::play(uint16_t note, double dur, double vol) {
-    Sample buf = Sample();
+glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
+    StereoSample buf = StereoSample();
     buf.resize(dur * SAMPLE_RATE);
     auto sampleLength = dur * SAMPLE_RATE;
 

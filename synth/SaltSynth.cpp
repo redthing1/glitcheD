@@ -9,8 +9,8 @@ glitched::SaltSynth::SaltSynth(std::vector<Oscillator> voices, Envelope amplitud
 
 }
 
-glitched::Sample glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
-    auto buf = std::vector<double>();
+glitched::StereoSample glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
+    auto buf = Sample(); // basic mono sample
     //    buf.resize(dur * SAMPLE_RATE);
     auto sampleLength = dur * SAMPLE_RATE;
     buf.resize(sampleLength * 2); // dirty hack for release
@@ -41,5 +41,6 @@ glitched::Sample glitched::SaltSynth::play(uint16_t note, double dur, double vol
             buf[j] = out;
         }
     }
-    return buf;
+    auto stereoBuf = StereoSample::fromMono(buf);
+    return stereoBuf;
 }

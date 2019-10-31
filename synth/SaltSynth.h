@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../defs.h"
+#include "../util/StereoSample.h"
 #include "Filter.h"
 #include "Instrument.h"
 #include "Oscillator.h"
@@ -19,6 +20,6 @@ class SaltSynth: public Instrument {
 
     SaltSynth(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
 
-    virtual glitched::Sample play(uint16_t note, double dur, double vol) override;
+    virtual glitched::StereoSample play(uint16_t note, double dur, double vol) override;
 };
 } // namespace glitched

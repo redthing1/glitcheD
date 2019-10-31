@@ -5,11 +5,12 @@
 
 #include "../defs.h"
 #include "../synth/Instrument.h"
+#include "../util/StereoSample.h"
 
 namespace glitched {
 class SandSynth : public Instrument {
   public:
     void grind(Sample sample);
-    virtual Sample play(uint16_t note, double dur, double vol) override;
+    virtual glitched::StereoSample play(uint16_t note, double dur, double vol) override;
 };
 }

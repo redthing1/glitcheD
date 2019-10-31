@@ -9,8 +9,7 @@ glitched::NoteMachine::NoteMachine(uint16_t memorySize, Instrument &instrument, 
 }
 
 void glitched::NoteMachine::loadProgram(std::vector<uint8_t> program) {
-    int a = this->memory.size();
-    for (int i = 0; i < program.size(); i++) {
+    for (size_t i = 0; i < program.size(); i++) {
         this->memory[i] = program[i];
     }
 }
@@ -31,19 +30,19 @@ void glitched::NoteMachine::execute() {
         }
         case PLAY: {
             byte note = this->memory[programCounter++ + 1];
-            auto dur = getDuration(noteDuration);
-            auto noteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
-            copyAudio(StereoSample::fromMono(noteAudioBuffer), bufferPosition);
+            auto dur = getDuration();
+            auto noteSample = instrument.play(note, dur, getVelocity());
+            copyAudio(noteSample, bufferPosition);
             bufferPosition += dur * SAMPLE_RATE;
             break;
         }
         case REST: {
-            auto dur = getDuration(noteDuration);
+            auto dur = getDuration();
             bufferPosition += dur * SAMPLE_RATE;
             break;
         }
         case BACK: {
-            auto dur = getDuration(noteDuration);
+            auto dur = getDuration();
             bufferPosition -= dur * SAMPLE_RATE;
             break;
         }
@@ -57,12 +56,11 @@ void glitched::NoteMachine::execute() {
             break;
         }
         case BATCH: {
-            auto dur = getDuration(noteDuration);
+            auto dur = getDuration();
             while (this->memory[++stackPointer] != FRAME_DELIMITER) {
                 byte note = this->memory[stackPointer];
-                auto monoNoteAudioBuffer = instrument.play(note, dur, getVelocity(noteVelocity));
-                auto noteAudioBuffer = StereoSample::fromMono(monoNoteAudioBuffer);
-                copyAudio(noteAudioBuffer, bufferPosition);
+                auto noteBuffer = instrument.play(note, dur, getVelocity());
+                copyAudio(noteBuffer, bufferPosition);
             }
             bufferPosition += dur * SAMPLE_RATE;
             break;
@@ -87,11 +85,11 @@ void glitched::NoteMachine::execute() {
     }
 }
 
-double glitched::NoteMachine::getDuration(glitched::NoteMachine::byte dur) {
+double glitched::NoteMachine::getDuration() {
     return noteDuration / static_cast<double>(noteBps);
 }
 
-double glitched::NoteMachine::getVelocity(glitched::NoteMachine::byte dur) { return noteVelocity / 128.0; }
+double glitched::NoteMachine::getVelocity() { return noteVelocity / 128.0; }
 
 void glitched::NoteMachine::copyAudio(StereoSample buffer, uint32_t position) {
     StereoSample::copy(buffer, audioBuffer, position);
