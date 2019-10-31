@@ -1,6 +1,5 @@
 
 #include "SongWriter.h"
-#include "../defs.h"
 
 glitched::SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
     const int numChannels = 2; // stereo audio
@@ -16,9 +15,9 @@ glitched::SongWriter::SongWriter(size_t size) : audioFile(AudioFile<double>()) {
 
 bool glitched::SongWriter::save(std::string path) { return audioFile.save(path, AudioFileFormat::Wave); }
 
-void glitched::SongWriter::insert(size_t pos, glitched::Sample buf) {
-    // TODO: update to use stereo
-    for (size_t i = 0; i < buf.size(); i++) {
-        audioFile.samples[0][pos + i] += buf[i];
+void glitched::SongWriter::insert(size_t pos, glitched::StereoSample audioBuffer) {
+    for (size_t i = 0; i < audioBuffer.size(); i++) {
+        audioFile.samples[0][pos + i] += audioBuffer.l[i];
+        audioFile.samples[1][pos + i] += audioBuffer.r[i];
     }
 }
