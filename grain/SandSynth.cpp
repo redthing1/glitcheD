@@ -15,7 +15,7 @@ glitched::StereoSample SandSynth::play(uint16_t note, double dur, double vol) {
     int frameSpace = SAMPLE_RATE / freq;
     int grainsInSample = sampleLength / frameSpace;
     int grainFrame = frameRamp * 2 + frameHold;
-    int concurrentGrains = grainFrame / frameSpace; // the maximum number of grains playing at a time
+    int concurrentGrains = (grainFrame / frameSpace) + 1; // the maximum number of grains playing at a time
     double grainMix = 1.0 / concurrentGrains; // grain mix volume factor
     for (int g = 0; g < grainsInSample; g++) { // for each grain
         // figure out when the grain starts
