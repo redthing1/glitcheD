@@ -17,6 +17,8 @@
 #include "track/WaveHelper.h"
 
 int main(int argc, const char *argv[]) {
+    // TODO: add subcommand to select synth engine and input for NoteMachine
+    
     // load audio data for granular sampling
     auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
     auto sandy = glitched::SandSynth();
