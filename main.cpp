@@ -15,12 +15,13 @@
 #include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
 #include "track/WaveHelper.h"
+#include "util/ConfigHelper.h"
 #include "util/toml.h"
 
 int main(int argc, const char *argv[]) {
     if (argc < 4) {
         std::cout << "Usage:" << std::endl;
-        std::cout << "  ./glitcheD <engine> <input> <output>" << std::endl;
+        std::cout << "  ./glitched <engine> <input> <output>" << std::endl;
         return -1;
     }
     std::shared_ptr<glitched::Instrument> instr;
@@ -36,32 +37,38 @@ int main(int argc, const char *argv[]) {
         return -2;
     }
 
-    const toml::Value& v = pr.value;
+    const toml::Value &v = pr.value;
 
     if (engine_arg == "salt") {
-        auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
-        osc1.tune = -10;
-        osc1.mix = 0.5;
-        auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
-        osc2.tune = +10;
-        osc2.mix = 0.5;
-        auto osc3 = glitched::Oscillator(glitched::Wave::Square);
-        osc3.transpose = -12;
-        auto osc_pitchMod = std::make_shared<glitched::LFO>(4.0, 0.5);
-        osc1.pitchMod = osc_pitchMod;
-        osc2.pitchMod = osc_pitchMod;
-        auto voices = {osc1, osc2, osc3};
-        auto ampEnv = glitched::Envelope(0.1f, 0.4f, 0.3f, 0.4f);
+        auto oscs_config = v.find("osc")->as<std::vector<toml::Value>>();
+        std::vector<glitched::Oscillator> voices;
+        for (const auto osc_config : oscs_config) {
+            glitched::Wave wave = parseWave(osc_config.get<std::string>("wave"));
+            auto osc = glitched::Oscillator(wave);
+            osc.tune = osc_config.get<int>("tune");
+            osc.mix = osc_config.get<double_t>("mix");
+            if (osc_config.find("transpose")) {
+                osc.transpose = osc_config.get<int>("transpose");
+            }
+            voices.push_back(osc);
+        }
+        //        auto osc_pitchMod = std::make_shared<glitched::LFO>(4.0, 0.5);
+        //        osc1.pitchMod = osc_pitchMod;
+        //        osc2.pitchMod = osc_pitchMod;
+        auto env_config = v.find("env");
+        auto ampEnvVals = env_config->get<std::vector<double>>("amp");
+        auto ampEnv = glitched::Envelope(ampEnvVals[0], ampEnvVals[1], ampEnvVals[2], ampEnvVals[3]);
         auto filter_config = v.find("filter");
-        auto cutoffMod = std::make_shared<glitched::LFO>(2.0);
-        auto cutoff = glitched::Value(filter_config->get<double_t>("cutoff"), cutoffMod, 0.1);
-        auto resonance = glitched::Value(0.40);
+//        auto cutoffMod = std::make_shared<glitched::LFO>(2.0);
+        auto cutoff = glitched::Value(filter_config->get<double_t>("cutoff"), nullptr, 0.1);
+        auto resonance = glitched::Value(filter_config->get<double_t>("resonance"));
         auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
         auto salty = std::make_shared<glitched::SaltSynth>(voices, ampEnv, filter);
         instr = salty;
     } else if (engine_arg == "sand") {
+        auto grain_config = v.find("grain");
         // load audio data for granular sampling
-        auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
+        auto grainSource = glitched::WaveHelper::read(grain_config->get<std::string>("source"));
         auto sandy = std::make_shared<glitched::SandSynth>();
         sandy->grind(grainSource);
         instr = sandy;

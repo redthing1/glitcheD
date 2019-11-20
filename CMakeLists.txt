@@ -32,4 +32,4 @@ add_executable(glitched
         util/Tuning.cpp
         util/Tuning.h
         synth/effects/Delay.cpp
-        synth/effects/Delay.h synth/Instrument.h grain/SandSynth.cpp grain/SandSynth.h util/StereoSample.cpp util/StereoSample.h)
+        synth/effects/Delay.h synth/Instrument.h grain/SandSynth.cpp grain/SandSynth.h util/StereoSample.cpp util/StereoSample.h util/ConfigHelper.h)
