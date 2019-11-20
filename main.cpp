@@ -36,6 +36,8 @@ int main(int argc, const char *argv[]) {
         return -2;
     }
 
+    const toml::Value& v = pr.value;
+
     if (engine_arg == "salt") {
         auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
         osc1.tune = -10;
@@ -50,8 +52,9 @@ int main(int argc, const char *argv[]) {
         osc2.pitchMod = osc_pitchMod;
         auto voices = {osc1, osc2, osc3};
         auto ampEnv = glitched::Envelope(0.1f, 0.4f, 0.3f, 0.4f);
+        auto filter_config = v.find("filter");
         auto cutoffMod = std::make_shared<glitched::LFO>(2.0);
-        auto cutoff = glitched::Value(0.6, cutoffMod, 0.1);
+        auto cutoff = glitched::Value(filter_config->get<double_t>("cutoff"), cutoffMod, 0.1);
         auto resonance = glitched::Value(0.40);
         auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
         auto salty = std::make_shared<glitched::SaltSynth>(voices, ampEnv, filter);
