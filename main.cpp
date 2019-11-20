@@ -15,6 +15,7 @@
 #include "synth/mod/LFO.h"
 #include "track/NoteMachine.h"
 #include "track/WaveHelper.h"
+#include "util/toml.h"
 
 int main(int argc, const char *argv[]) {
     if (argc < 4) {
@@ -26,6 +27,15 @@ int main(int argc, const char *argv[]) {
     std::string engine_arg(argv[1]);
     std::string input_arg(argv[2]);
     std::string output_arg(argv[3]);
+    std::string config_file = "glitched.toml";
+    std::ifstream cfs(config_file);
+    toml::ParseResult pr = toml::parse(cfs);
+
+    if (!pr.valid()) {
+        std::cout << config_file << ": toml parse error: " << pr.errorReason << std::endl;
+        return -2;
+    }
+
     if (engine_arg == "salt") {
         auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
         osc1.tune = -10;
