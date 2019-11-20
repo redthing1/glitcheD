@@ -17,13 +17,16 @@
 #include "track/WaveHelper.h"
 
 int main(int argc, const char *argv[]) {
-    if (argc < 3) {
+    if (argc < 4) {
         std::cout << "Usage:" << std::endl;
-        std::cout << "  ./glitcheD <engine> <input>" << std::endl;
+        std::cout << "  ./glitcheD <engine> <input> <output>" << std::endl;
         return -1;
     }
     std::shared_ptr<glitched::Instrument> instr;
-    if (argv[1] == "salt") {
+    std::string engine_arg(argv[1]);
+    std::string input_arg(argv[2]);
+    std::string output_arg(argv[3]);
+    if (engine_arg == "salt") {
         auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
         osc1.tune = -10;
         osc1.mix = 0.5;
@@ -43,23 +46,20 @@ int main(int argc, const char *argv[]) {
         auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
         auto salty = std::make_shared<glitched::SaltSynth>(voices, ampEnv, filter);
         instr = salty;
-    }
-    if (argv[1] == "sand") {
+    } else if (engine_arg == "sand") {
         // load audio data for granular sampling
         auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
         auto sandy = std::make_shared<glitched::SandSynth>();
         sandy->grind(grainSource);
         instr = sandy;
     }
-    
-    // load audio data for granular sampling
-    auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
-    auto sandy = glitched::SandSynth();
-    sandy.grind(grainSource);
+    std::cout << "[g] synth engine: " << engine_arg << std::endl;
+    std::cout << "[g] input file: " << input_arg << std::endl;
+    std::cout << "[g] output file: " << output_arg << std::endl;
 
-    glitched::NoteMachine noteMachine(INT16_MAX, sandy, 12);
+    glitched::NoteMachine noteMachine(INT16_MAX, *instr.get(), 12);
     noteMachine.loadProgram(demo_generate_scale());
     noteMachine.execute();
 
-    glitched::WaveHelper::save(noteMachine.audioBuffer, "out.wav");
+    glitched::WaveHelper::save(noteMachine.audioBuffer, output_arg);
 }
