@@ -25,13 +25,13 @@ int main(int argc, const char *argv[]) {
         std::cout << "  ./glitched <engine> <input> <output>" << std::endl;
         return -1;
     }
-    std::shared_ptr<glitched::Instrument> instr;
+    glitched::Instrument* instr;
     std::string engine_arg(argv[1]);
     std::string input_arg(argv[2]);
     std::string output_arg(argv[3]);
     std::string config_file = "glitched.toml";
 
-    std::ifstream input_f(input_arg);
+    std::ifstream input_f(input_arg, std::ios::in | std::ios::binary);
 
     std::ifstream cfs(config_file);
     toml::ParseResult pr = toml::parse(cfs);
@@ -67,13 +67,13 @@ int main(int argc, const char *argv[]) {
         auto cutoff = glitched::Value(filter_config->get<double_t>("cutoff"), nullptr, 0.1);
         auto resonance = glitched::Value(filter_config->get<double_t>("resonance"));
         auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
-        auto salty = std::make_shared<glitched::SaltSynth>(voices, ampEnv, filter);
+        auto salty = new glitched::SaltSynth(voices, ampEnv, filter);
         instr = salty;
     } else if (engine_arg == "sand") {
         auto grain_config = v.find("grain");
         // load audio data for granular sampling
         auto grainSource = glitched::WaveHelper::read(grain_config->get<std::string>("source"));
-        auto sandy = std::make_shared<glitched::SandSynth>();
+        auto sandy = new glitched::SandSynth();
         sandy->grind(grainSource);
         instr = sandy;
     } else if (engine_arg == "nasm") {
@@ -89,8 +89,9 @@ int main(int argc, const char *argv[]) {
     std::cout << "[g] input file: " << input_arg << std::endl;
     std::cout << "[g] output file: " << output_arg << std::endl;
 
-    glitched::NoteMachine noteMachine(INT16_MAX, *instr.get());
-    noteMachine.loadProgram(demo_generate_scale());
+    glitched::NoteMachine noteMachine(INT16_MAX, *instr);
+    std::vector<uint8_t> inputBuf((std::istreambuf_iterator<char>(input_f)), std::istreambuf_iterator<char>());
+    noteMachine.loadProgram(inputBuf);
     noteMachine.execute();
 
     glitched::WaveHelper::save(noteMachine.audioBuffer, output_arg);
