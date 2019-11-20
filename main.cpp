@@ -17,7 +17,40 @@
 #include "track/WaveHelper.h"
 
 int main(int argc, const char *argv[]) {
-    // TODO: add subcommand to select synth engine and input for NoteMachine
+    if (argc < 3) {
+        std::cout << "Usage:" << std::endl;
+        std::cout << "  ./glitcheD <engine> <input>" << std::endl;
+        return -1;
+    }
+    std::shared_ptr<glitched::Instrument> instr;
+    if (argv[1] == "salt") {
+        auto osc1 = glitched::Oscillator(glitched::Wave::Saw);
+        osc1.tune = -10;
+        osc1.mix = 0.5;
+        auto osc2 = glitched::Oscillator(glitched::Wave::Saw);
+        osc2.tune = +10;
+        osc2.mix = 0.5;
+        auto osc3 = glitched::Oscillator(glitched::Wave::Square);
+        osc3.transpose = -12;
+        auto osc_pitchMod = std::make_shared<glitched::LFO>(4.0, 0.5);
+        osc1.pitchMod = osc_pitchMod;
+        osc2.pitchMod = osc_pitchMod;
+        auto voices = {osc1, osc2, osc3};
+        auto ampEnv = glitched::Envelope(0.1f, 0.4f, 0.3f, 0.4f);
+        auto cutoffMod = std::make_shared<glitched::LFO>(2.0);
+        auto cutoff = glitched::Value(0.6, cutoffMod, 0.1);
+        auto resonance = glitched::Value(0.40);
+        auto filter = glitched::Filter(glitched::FilterMode::LowPass, cutoff, resonance);
+        auto salty = std::make_shared<glitched::SaltSynth>(voices, ampEnv, filter);
+        instr = salty;
+    }
+    if (argv[1] == "sand") {
+        // load audio data for granular sampling
+        auto grainSource = glitched::WaveHelper::read("samp/summit.wav");
+        auto sandy = std::make_shared<glitched::SandSynth>();
+        sandy->grind(grainSource);
+        instr = sandy;
+    }
     
     // load audio data for granular sampling
     auto grainSource = glitched::WaveHelper::read("samp/summit.wav");

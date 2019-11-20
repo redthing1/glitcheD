@@ -7,7 +7,9 @@
 #include <cstdint>
 #include <vector>
 
+namespace glitched {
 class Instrument {
   public:
     virtual glitched::StereoSample play(uint16_t note, double dur, double vol) = 0;
 };
+} // namespace glitched
