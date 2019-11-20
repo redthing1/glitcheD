@@ -1,6 +1,9 @@
 #pragma once
 
+#include "../defs.h"
+#include "../util/StereoSample.h"
 #include "Filter.h"
+#include "Instrument.h"
 #include "Oscillator.h"
 #include "effects/Effect.h"
 #include "mod/Envelope.h"
@@ -8,7 +11,7 @@
 #include <memory>
 
 namespace glitched {
-class SaltSynth {
+class SaltSynth: public Instrument {
   public:
     std::vector<Oscillator> voices;
     std::vector<std::reference_wrapper<glitched::Effect>> effects;
@@ -17,6 +20,6 @@ class SaltSynth {
 
     SaltSynth(std::vector<Oscillator> voices, Envelope amplitudeEnvelope, Filter filter);
 
-    std::vector<double> play(uint16_t note, double dur, double vol);
+    virtual glitched::StereoSample play(uint16_t note, double dur, double vol) override;
 };
 } // namespace glitched

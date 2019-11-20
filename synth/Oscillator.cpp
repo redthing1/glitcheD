@@ -1,5 +1,5 @@
 #include "Oscillator.h"
-#include "../constants.h"
+#include "../defs.h"
 #include "../util/Tuning.h"
 #include <cmath>
 #include <stdexcept>

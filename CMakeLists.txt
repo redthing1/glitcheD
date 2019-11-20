@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 
 add_executable(glitched
         main.cpp
-        constants.h
+        defs.h
         misc/songs.h
         synth/Oscillator.cpp
         synth/Oscillator.h
@@ -25,10 +25,11 @@ add_executable(glitched
         synth/effects/Overdrive.h
         track/NoteMachine.cpp
         track/NoteMachine.h
-        track/SongWriter.cpp
-        track/SongWriter.h
+        track/WaveHelper.cpp
+        track/WaveHelper.h
         util/AudioFile.cpp
         util/AudioFile.h
         util/Tuning.cpp
         util/Tuning.h
-        synth/effects/Delay.cpp synth/effects/Delay.h)
+        synth/effects/Delay.cpp
+        synth/effects/Delay.h synth/Instrument.h grain/SandSynth.cpp grain/SandSynth.h util/StereoSample.cpp util/StereoSample.h)

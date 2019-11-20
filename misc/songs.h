@@ -6,6 +6,57 @@
 
 // clang-format off
 
+std::vector<uint8_t> demo_generate_scale() {
+    std::vector<uint8_t> scale = {
+        glitched::NoteMachine::VEL, 96,
+        glitched::NoteMachine::DUR, 16,
+        glitched::NoteMachine::BPS, 64 };
+    // add scale notes
+
+    int startNote = 25;
+    int octaves = 5;
+    for (int note = startNote; note < (startNote + 12 * octaves); note += 2) { // whole tone scale
+        scale.push_back(glitched::NoteMachine::PLAY);
+        scale.push_back(note);
+    }
+
+    scale.push_back(glitched::NoteMachine::RET);
+
+    return scale;
+}
+
+static const std::vector<uint8_t> demo_basic = {
+    glitched::NoteMachine::VEL, 96,
+    glitched::NoteMachine::DUR, 24,
+    glitched::NoteMachine::BPS, 48,
+
+    glitched::NoteMachine::DUR, 16,
+    glitched::NoteMachine::PLAY, 49, // A
+    glitched::NoteMachine::PLAY, 51,
+    glitched::NoteMachine::PLAY, 53,
+    glitched::NoteMachine::PLAY, 54,
+    glitched::NoteMachine::PLAY, 56,
+    glitched::NoteMachine::PLAY, 58,
+    glitched::NoteMachine::PLAY, 60,
+    glitched::NoteMachine::PLAY, 61, // A
+    glitched::NoteMachine::PLAY, 63,
+    glitched::NoteMachine::PLAY, 65,
+    glitched::NoteMachine::PLAY, 66,
+    glitched::NoteMachine::PLAY, 68,
+    glitched::NoteMachine::PLAY, 70,
+    glitched::NoteMachine::PLAY, 72,
+    glitched::NoteMachine::PLAY, 73, // A
+    glitched::NoteMachine::PLAY, 75,
+    glitched::NoteMachine::PLAY, 77,
+    glitched::NoteMachine::PLAY, 78,
+    glitched::NoteMachine::PLAY, 80,
+    glitched::NoteMachine::PLAY, 82,
+    glitched::NoteMachine::PLAY, 84,
+    glitched::NoteMachine::PLAY, 85, // A
+
+    glitched::NoteMachine::RET,
+};
+
 static const std::vector<uint8_t> demo_testSong1 = {
         glitched::NoteMachine::VEL, 96,
         glitched::NoteMachine::DUR, 24,
@@ -31,7 +82,7 @@ static const std::vector<uint8_t> demo_testSong1 = {
 static const std::vector<uint8_t> demo_stardustCrusaders = {
         glitched::NoteMachine::VEL, 96,
         glitched::NoteMachine::DUR, 24,
-        glitched::NoteMachine::BPS, 96,
+        glitched::NoteMachine::BPS, 48,
 
         // -- jotaro's theme
         glitched::NoteMachine::DUR, 36,

@@ -1,6 +1,6 @@
 #include "SaltSynth.h"
 
-#include "../constants.h"
+#include "../defs.h"
 #include "../util/Tuning.h"
 #include <utility>
 
@@ -9,8 +9,8 @@ glitched::SaltSynth::SaltSynth(std::vector<Oscillator> voices, Envelope amplitud
 
 }
 
-std::vector<double> glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
-    auto buf = std::vector<double>();
+glitched::StereoSample glitched::SaltSynth::play(uint16_t note, double dur, double vol) {
+    auto buf = Sample(); // basic mono sample
     //    buf.resize(dur * SAMPLE_RATE);
     auto sampleLength = dur * SAMPLE_RATE;
     buf.resize(sampleLength * 2); // dirty hack for release
@@ -41,5 +41,6 @@ std::vector<double> glitched::SaltSynth::play(uint16_t note, double dur, double 
             buf[j] = out;
         }
     }
-    return buf;
+    auto stereoBuf = StereoSample::fromMono(buf);
+    return stereoBuf;
 }

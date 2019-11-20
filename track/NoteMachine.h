@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../synth/SaltSynth.h"
+#include "../util/StereoSample.h"
 #include <cstdint>
 #include <vector>
 
@@ -25,13 +26,13 @@ class NoteMachine {
 
     const byte FRAME_DELIMITER = 0x00;
 
-    double getDuration(byte dur);
-    double getVelocity(byte vel);
-    void copyAudio(std::vector<double> buffer, uint32_t position);
+    double getDuration();
+    double getVelocity();
+    void copyAudio(StereoSample buffer, uint32_t position);
 
   public:
-    SaltSynth &instrument;
-    std::vector<double> audioBuffer;
+    Instrument &instrument;
+    StereoSample audioBuffer;
 
     enum Instruction : byte {
         NOP = 0x00,
@@ -48,7 +49,7 @@ class NoteMachine {
         RET = 0x99,
     };
 
-    explicit NoteMachine(uint16_t memorySize, SaltSynth &instrument, double duration);
+    explicit NoteMachine(uint16_t memorySize, Instrument &instrument, double duration);
     void loadProgram(std::vector<byte> program);
     void execute();
 };
