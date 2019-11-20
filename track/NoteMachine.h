@@ -49,7 +49,7 @@ class NoteMachine {
         RET = 0x99,
     };
 
-    explicit NoteMachine(uint16_t memorySize, Instrument &instrument, double duration);
+    explicit NoteMachine(uint16_t memorySize, Instrument &instrument);
     void loadProgram(std::vector<byte> program);
     void execute();
 };

@@ -1,11 +1,10 @@
 #include "NoteMachine.h"
 #include "../defs.h"
 
-glitched::NoteMachine::NoteMachine(uint16_t memorySize, Instrument &instrument, double duration)
+glitched::NoteMachine::NoteMachine(uint16_t memorySize, Instrument &instrument)
     : programCounter(0), bufferPosition(0), instrument(instrument) {
     this->memory.resize(memorySize);
     stackPointer = memorySize - 1;
-    audioBuffer.resize(duration * SAMPLE_RATE);
 }
 
 void glitched::NoteMachine::loadProgram(std::vector<uint8_t> program) {
@@ -92,5 +91,10 @@ double glitched::NoteMachine::getDuration() {
 double glitched::NoteMachine::getVelocity() { return noteVelocity / 128.0; }
 
 void glitched::NoteMachine::copyAudio(StereoSample buffer, uint32_t position) {
+    // auto-resize audio buffer
+    auto targetSize = position + buffer.l.size();
+    if (audioBuffer.l.size() < targetSize) {
+        audioBuffer.resize(targetSize);
+    }
     StereoSample::copy(buffer, audioBuffer, position);
 }

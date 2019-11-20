@@ -77,7 +77,7 @@ int main(int argc, const char *argv[]) {
     std::cout << "[g] input file: " << input_arg << std::endl;
     std::cout << "[g] output file: " << output_arg << std::endl;
 
-    glitched::NoteMachine noteMachine(INT16_MAX, *instr.get(), 12);
+    glitched::NoteMachine noteMachine(INT16_MAX, *instr.get());
     noteMachine.loadProgram(demo_generate_scale());
     noteMachine.execute();
 
