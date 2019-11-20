@@ -13,6 +13,7 @@
 #include "synth/effects/Delay.h"
 #include "synth/effects/Overdrive.h"
 #include "synth/mod/LFO.h"
+#include "track/NasmAssembler.h"
 #include "track/NoteMachine.h"
 #include "track/WaveHelper.h"
 #include "util/ConfigHelper.h"
@@ -29,6 +30,9 @@ int main(int argc, const char *argv[]) {
     std::string input_arg(argv[2]);
     std::string output_arg(argv[3]);
     std::string config_file = "glitched.toml";
+
+    std::ifstream input_f(input_arg);
+
     std::ifstream cfs(config_file);
     toml::ParseResult pr = toml::parse(cfs);
 
@@ -72,6 +76,14 @@ int main(int argc, const char *argv[]) {
         auto sandy = std::make_shared<glitched::SandSynth>();
         sandy->grind(grainSource);
         instr = sandy;
+    } else if (engine_arg == "nasm") {
+        // assembler for NoteASM
+        std::cout << "assembling [" << input_arg << "]...";
+        auto assembler = glitched::NasmAssembler(input_f);
+        std::ofstream ouf(output_arg);
+        assembler.assemble(ouf);
+        std::cout << "done" << std::endl;
+        return 0;
     }
     std::cout << "[g] synth engine: " << engine_arg << std::endl;
     std::cout << "[g] input file: " << input_arg << std::endl;
