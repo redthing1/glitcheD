@@ -82,7 +82,7 @@ int main(int argc, const char *argv[]) {
         auto assembler = glitched::NasmAssembler(input_f);
         std::ofstream ouf(output_arg);
         assembler.assemble(ouf);
-        std::cout << "done" << std::endl;
+        std::cout << "done [" << output_arg << "]" << std::endl;
         return 0;
     }
     std::cout << "[g] synth engine: " << engine_arg << std::endl;
