@@ -35,18 +35,18 @@ class NoteMachine {
     StereoSample audioBuffer;
 
     enum Instruction : byte {
-        NOP = 0x00,
-        MODE = 0x01,
-        PLAY = 0x10,
-        PUSH = 0x11,
-        FRAME = 0x12,
-        BATCH = 0x13,
-        REST = 0x14,
-        BACK = 0x15,
-        DUR = 0x20,
-        VEL = 0x21,
-        BPS = 0x22,
-        RET = 0x99,
+        NOP = 0x00, // nop
+        MODE = 0x01, // set mode
+        PLAY = 0x10, // play note
+        PUSH = 0x11, // push to note stack
+        FRAME = 0x12, // start note stack
+        BATCH = 0x13, // play note stack
+        REST = 0x14, // seek forward
+        BACK = 0x15, // seek back
+        DUR = 0x20, // set _dur
+        VEL = 0x21, // set _vel
+        BPS = 0x22, // set _bps
+        RET = 0x99, // ret
     };
 
     explicit NoteMachine(uint16_t memorySize, Instrument &instrument);
